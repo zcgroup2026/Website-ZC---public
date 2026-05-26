@@ -1,8 +1,10 @@
 ---
 title: 课题组成员
-layout: default
+permalink: /members/
+layout: single
+author_profile: true
 ---
-
+# 课题组成员
 ## 在读学生
 
 ### 崔海阳
