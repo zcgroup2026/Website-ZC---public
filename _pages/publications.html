@@ -1,0 +1,42 @@
+---
+layout: archive
+title: "研究成果"
+permalink: /publications/
+author_profile: true
+---
+
+{% if site.author.googlescholar %}
+  <div class="wordwrap">
+  你可以点击
+  <a href="https://scholar.google.com/citations?user=4OFp18YAAAAJ&hl=en&oi=ao" target="_blank">
+    此链接
+  </a>
+  查看最新研究成果
+</div>
+{% endif %}
+
+
+<!-- New style rendering if publication categories are defined -->
+{% if site.publication_category %}
+  {% for category in site.publication_category  %}
+    {% assign title_shown = false %}
+    {% for post in site.publications reversed %}
+      {% if post.category != category[0] %}
+        {% continue %}
+      {% endif %}
+      {% unless title_shown %}
+        <h2>{{ category[1].title }}</h2><hr />
+        {% assign title_shown = true %}
+      {% endunless %}
+      {% include archive-single.html %}
+    {% endfor %}
+  {% endfor %}
+{% else %}
+  {% for post in site.publications reversed %}
+    {% include archive-single.html %}
+  {% endfor %}
+{% endif %} 
+
+
+
+
