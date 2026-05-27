@@ -1,6 +1,6 @@
 ---
 title: 姜景栋 - 课题组成员
-permalink: /members/jiang-jingdong/
+permalink: /jiang-jingdong/
 layout: single
 author_profile: true
 ---

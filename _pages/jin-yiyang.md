@@ -1,6 +1,6 @@
 ---
 title: 靳依扬 - 课题组成员
-permalink: /members/jin-yiyang/
+permalink: /jin-yiyang/
 layout: single
 author_profile: true
 ---

@@ -1,6 +1,6 @@
 ---
 title: 董力 - 课题组成员
-permalink: /members/dong-li/
+permalink: /dong-li/
 layout: single
 author_profile: true
 ---
