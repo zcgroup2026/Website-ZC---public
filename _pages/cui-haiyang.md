@@ -1,7 +1,6 @@
 ---
----
 title: 崔海阳
-avatar: "{{ site.baseurl }}/assets/img/members/cui-haiyang.jpg"
+avatar: "/assets/img/members/cui-haiyang.jpg"
 permalink: /cui-haiyang/
 layout: single
 author_profile: true
