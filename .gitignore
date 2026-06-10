@@ -1,4 +1,4 @@
-# Ignore the contents of the _site directory and other cache directories
+﻿# Ignore the contents of the _site directory and other cache directories
 _site/
 .sass-cache/
 
@@ -21,3 +21,14 @@ package-lock.json
 
 # Ignore files created by MacOS
 .DS_Store
+
+# Ignore backup directories created during cleanup
+_posts_backup/
+_publications_backup/
+_talks_backup/
+_teaching_backup/
+_portfolio_backup/
+_drafts_backup/
+_pages_backup/
+_data/comments_backup/
+*.bak

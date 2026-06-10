@@ -1,4 +1,4 @@
----
+﻿---
 layout: archive
 title: "CV"
 permalink: /cv/
@@ -52,7 +52,3 @@ Honors
 
 
 <div style="margin-bottom: 6em;"></div>
-
-<p style="text-align:center; color:#666; font-size:0.9em;">
-  © 2025 蔡子健课题组 · All Rights Reserved
-</p>

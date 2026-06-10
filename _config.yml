@@ -1,4 +1,4 @@
-# Welcome to Jekyll!
+﻿# Welcome to Jekyll!
 #
 # This config file is meant for settings that affect your entire site, values
 # which you are expected to set up once and rarely need to edit after that.
@@ -7,16 +7,16 @@
 # server process.
 
 # Basic Site Settings
-locale                   : "en-US"
+locale                   : "zh-CN"
 site_theme               : "default" # Currently available options are "default", "air"
 title                    : "蔡子健课题组"
 title_separator          : "-"
 name                     : &name "蔡子健"
-description              : &description "中国科学技术大学化学与材料科学学院"   # Update this with a general description of your site, this is the default if not overridden by a page
+description              : &description "中国科学院大学化学科学学院"   # Update this with a general description of your site, this is the default if not overridden by a page
 url                      : https://zcgroup2026.github.io # The base hostname & protocol for your site e.g. "https://[your GitHub username].github.io",
                                                            # or if you already have some other page hosted on Github then use "https://[your GitHub username].github.io/[Your Repo Name]"
-baseurl                  : /Website-ZC---public # the subpath of your site, e.g. "/blog"
-repository               : "ZijianCai/ZijianCai.github.io"
+baseurl                  : "" # the subpath of your site, e.g. "/blog"
+repository               : "zcgroup2026/zcgroup2026.github.io"
 
 # Site Author - The following control what appear as part of the author content on the side bar.
 #               If a field is blank the icon and link will not appear, otherwise it will be shown.
@@ -211,6 +211,9 @@ kramdown:
 
 # These settings control the types of collections used by the template
 collections:
+  research:
+    output: true
+    permalink: /:collection/:path/
   teaching:
     output: true
     permalink: /:collection/:path/
@@ -272,6 +275,15 @@ defaults:
       author_profile: true
       share: true
       comment: true
+  # _research
+  - scope:
+      path: ""
+      type: research
+    values:
+      layout: single
+      author_profile: true
+      share: true
+
   # _talks
   - scope:
       path: ""

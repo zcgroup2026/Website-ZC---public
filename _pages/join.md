@@ -1,9 +1,12 @@
----
+﻿---
 layout: archive
 title: "加入我们"
-permalink: /markdown/
+permalink: /join/
 author_profile: true
 redirect_from: 
+  - /markdown/
+  - /md/
+  - /markdown.html 
   - /md/
   - /markdown.html
 ---
@@ -67,7 +70,3 @@ redirect_from:
 2、材料接收地址及注意事项https://chem.ucas.edu.cn/index.php/zh-cn/zsxx/2016-03-28-08-09-27/7243-2025-12-05-03-40-53
 3、化学科学学院2026年博士招考实施方案https://chem.ucas.edu.cn/index.php/zh-cn/zsxx/2016-03-28-08-09-27/7225-2026-3
 4、中国科学院大学2026年秋季入学博士招生https://admission.ucas.ac.cn/ShowArticle/Article/94e6b364-4d3b-4e7c-9eea-37bb18b5ace0/af494336-1230-4340-9032-2ecd2cd1c3eb
-
-<p style="text-align:center; color:#666; font-size:0.9em; margin-top:40px;">
-  © 2025 蔡子健课题组 · All Rights Reserved
-</p>

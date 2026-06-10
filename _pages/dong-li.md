@@ -1,14 +1,22 @@
----
+﻿---
 title: 董力 - 课题组成员
 permalink: /dong-li/
 layout: single
 author_profile: true
 ---
 
-# 董力
-
-## 基本信息
-- **身份**：硕士研究生
-- **入学年份**：2026
-- **学习经历**：盐城工学院 学士
-- **邮箱**：dongli@stu.ycit.edu.cn
+<div style="display: flex; gap: 2.5rem; margin: 2rem 0; align-items: flex-start; flex-wrap: wrap;">
+  <div style="flex-shrink: 0;">
+    <img src="{{ site.baseurl }}/assets/img/members/dong-li.jpg" alt="董力" style="width: 180px; height: 180px; object-fit: cover;">
+    <h3 style="text-align: center; margin-top: 1rem;">董力</h3>
+  </div>
+  <div>
+    <h2>基本信息</h2>
+    <ul style="line-height: 2;">
+      <li><strong>身份</strong>：硕士研究生</li>
+      <li><strong>入学年份</strong>：2026</li>
+      <li><strong>学习经历</strong>：盐城工学院 学士</li>
+      <li><strong>邮箱</strong>：dongli@stu.ycit.edu.cn</li>
+    </ul>
+  </div>
+</div>

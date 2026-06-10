@@ -1,4 +1,4 @@
----
+﻿---
 permalink: /
 title: "Welcome To Cai Group"
 author_profile: true
@@ -30,7 +30,3 @@ redirect_from:
 - [蔡子健 Google Scholar](https://scholar.google.com/citations?user=4OFp18YAAAAJ&hl=en&oi=ao)
 
 <div style="margin-bottom: 6em;"></div>
-
-<p style="text-align:center; color:#666; font-size:0.9em;">
-  © 2025 蔡子健课题组 · All Rights Reserved
-</p>
