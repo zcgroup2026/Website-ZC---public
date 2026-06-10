@@ -5,8 +5,6 @@ layout: single
 author_profile: true
 ---
 
-# 课题组成员
-
 ## 在读学生
 
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 2rem; text-align: center;">
