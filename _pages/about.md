@@ -1,4 +1,4 @@
-﻿---
+---
 permalink: /
 title: "Welcome To Cai Group"
 author_profile: true

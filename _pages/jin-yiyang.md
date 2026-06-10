@@ -1,4 +1,4 @@
-﻿---
+---
 title: 靳依扬 - 课题组成员
 permalink: /jin-yiyang/
 layout: single

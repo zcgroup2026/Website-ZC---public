@@ -1,4 +1,4 @@
-﻿---
+---
 title: 董力 - 课题组成员
 permalink: /dong-li/
 layout: single

@@ -1,4 +1,4 @@
-﻿---
+---
 title: 姜景栋 - 课题组成员
 permalink: /jiang-jingdong/
 layout: single

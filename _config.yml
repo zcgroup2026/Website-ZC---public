@@ -1,4 +1,4 @@
-﻿# Welcome to Jekyll!
+# Welcome to Jekyll!
 #
 # This config file is meant for settings that affect your entire site, values
 # which you are expected to set up once and rarely need to edit after that.
@@ -15,8 +15,8 @@ name                     : &name "蔡子健"
 description              : &description "中国科学院大学化学科学学院"   # Update this with a general description of your site, this is the default if not overridden by a page
 url                      : https://zcgroup2026.github.io # The base hostname & protocol for your site e.g. "https://[your GitHub username].github.io",
                                                            # or if you already have some other page hosted on Github then use "https://[your GitHub username].github.io/[Your Repo Name]"
-baseurl                  : "" # the subpath of your site, e.g. "/blog"
-repository               : "zcgroup2026/zcgroup2026.github.io"
+baseurl                  : "/Website-ZC---public" # the subpath of your site, e.g. "/blog"
+repository               : "zcgroup2026/Website-ZC---public"
 
 # Site Author - The following control what appear as part of the author content on the side bar.
 #               If a field is blank the icon and link will not appear, otherwise it will be shown.
