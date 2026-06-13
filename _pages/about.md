@@ -1,4 +1,5 @@
 ﻿---
+layout: single
 permalink: /
 title: "Welcome To Cai Group"
 author_profile: true
@@ -27,11 +28,10 @@ redirect_from:
 最新动态
 ======
 
-{% assign news_posts = site.posts | sort: "date" | reverse %}
-{% for post in news_posts limit: 3 %}
+{% for post in site.posts limit: 3 %}
   <div style="margin-bottom: 1.5em;">
     <strong>{{ post.date | date: "%Y-%m-%d" }}</strong> 
-    <a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+    <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
   </div>
 {% endfor %}
 
