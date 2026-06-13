@@ -1,4 +1,4 @@
-# Welcome to Jekyll!
+﻿# Welcome to Jekyll!
 #
 # This config file is meant for settings that affect your entire site, values
 # which you are expected to set up once and rarely need to edit after that.
@@ -34,6 +34,7 @@ author:
   # Academic websites
   googlescholar    : "https://scholar.google.com/citations?user=4OFp18YAAAAJ&hl=en&oi=ao"
   orcid            : #"https://orcid.org/my-orcid?orcid=0000-0002-4908-3180"
+  cv               : "/cv/"
   pubmed           : #"https://www.ncbi.nlm.nih.gov/pubmed/?term=john+snow"
 
 
@@ -361,3 +362,4 @@ compress_html:
   clippings: all
   ignore:
     envs: development
+

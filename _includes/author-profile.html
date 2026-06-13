@@ -1,4 +1,4 @@
-{% include base_path %}
+﻿{% include base_path %}
 
 {% if page.author and site.data.authors[page.author] %}
   {% assign author = site.data.authors[page.author] %}{% else %}{% assign author = site.author %}
@@ -46,6 +46,9 @@
       {% endif %}      
       {% if author.googlescholar %}
         <li><a href="{{ author.googlescholar }}"><i class="ai ai-google-scholar ai-fw icon-pad-right"></i>Google Scholar</a></li>
+      {% endif %}
+      {% if author.cv %}
+        <li><a href="{{ author.cv | prepend: base_path }}"><i class="ai ai-cv ai-fw icon-pad-right"></i>CV</a></li>
       {% endif %}
       {% if author.inspire-hep %}
         <li><a href="{{ author.inspire-hep }}"><i class="ai ai-inspire ai-fw icon-pad-right"></i>INSPIRE-HEP</a></li>
@@ -174,3 +177,4 @@
     </ul>
   </div>
 </div>
+
