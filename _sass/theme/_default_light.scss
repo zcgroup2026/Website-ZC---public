@@ -1,4 +1,4 @@
-/* ==========================================================================
+﻿/* ==========================================================================
    DEFAULT THEME
    ========================================================================== */
 
@@ -39,8 +39,9 @@ $sidebar-screen-min-width   : 1024px;
     --global-link-color                 : #52adc8;
     --global-link-color-hover           : mix(#000, #2f7f93, 25%);
     --global-link-color-visited         : mix(#fff, #2f7f93, 25%);  
-    --global-masthead-link-color        : #{$dark-gray};
-    --global-masthead-link-color-hover  : mix(#000, #{$gray}, 25%);    
+    --global-masthead-bg-color          : #1a365d;
+    --global-masthead-link-color        : #e2e8f0;
+    --global-masthead-link-color-hover  : #ffffff;    
     --global-text-color                 : #{$dark-gray};
     --global-text-color-light           : #{$light-gray};
     --global-thead-color                : #{$lighter-gray};
