@@ -1,11 +1,11 @@
-/* ==========================================================================
+﻿/* ==========================================================================
    FOOTER
    ========================================================================== */
 
 .page__footer {
   @include clearfix;
-  background-color: var(--global-footer-bg-color);
-  color: var(--global-text-color-light);
+  background-color: var(--global-masthead-bg-color);
+  color: var(--global-masthead-link-color);
 
   float: left;
   margin-left: 0;
@@ -25,7 +25,7 @@
           animation: intro 0.3s both;
   -webkit-animation-delay: 0.45s;
           animation-delay: 0.45s;
-  border-top: 1px solid var(--global-dark-border-color);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 
   footer {
     @include clearfix;
@@ -52,14 +52,69 @@
   .fas,
   .fab,
   .far,
-  .fal {
-    color: var(--global-text-color-light);
+  .fal,
+  .ai {
+    color: inherit;
   }
 }
+
+/* ---- Footer link bar ---- */
+
+.footer-links {
+  margin-bottom: 1.8em;
+  padding-bottom: 1.5em;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.footer-links__title {
+  margin: 0 0 0.8em 0;
+  font-family: $sans-serif-narrow;
+  font-size: $type-size-7;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+}
+
+.footer-links__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6em;
+}
+
+.footer-link-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  padding: 0.45em 1em;
+  font-family: $sans-serif;
+  font-size: $type-size-6;
+  color: var(--global-masthead-link-color);
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: $border-radius;
+  text-decoration: none !important;
+  transition: $global-transition;
+
+  &:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.14);
+    border-color: rgba(255, 255, 255, 0.3);
+    text-decoration: none !important;
+  }
+
+  i,
+  .ai {
+    font-size: 0.95em;
+    opacity: 0.8;
+  }
+}
+
+/* ---- Copyright ---- */
 
 .page__footer-copyright {
   font-family: $global-font-family;
   font-size: $type-size-7;
+  opacity: 0.6;
 }
 
 .page__footer-follow {
@@ -76,6 +131,7 @@
     font-family: $sans-serif-narrow;
     font-size: $type-size-6;
     text-transform: uppercase;
+    opacity: 0.7;
   }
 
   li + li:before {

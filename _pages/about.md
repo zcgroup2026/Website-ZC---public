@@ -34,11 +34,3 @@ redirect_from:
     <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
   </div>
 {% endfor %}
-
----
-
-相关链接
-------
-
-- [中国科学院大学化学科学学院](https://chem.ucas.ac.cn/index.php/zh-cn/)
-- [蔡子健 Google Scholar](https://scholar.google.com/citations?user=4OFp18YAAAAJ&hl=en&oi=ao)
