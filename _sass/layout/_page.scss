@@ -213,6 +213,115 @@
   }
 }
 
+
+/* ---- PI card ---- */
+
+.pi-card {
+  display: flex;
+  align-items: center;
+  gap: 2em;
+  padding: 2em;
+  margin-bottom: 3em;
+  background: var(--global-footer-bg-color);
+  border-radius: 8px;
+  border: 1px solid var(--global-border-color);
+}
+
+.pi-card__avatar {
+  width: 140px;
+  height: 140px;
+  border-radius: 8px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.pi-card__info {
+  flex: 1;
+}
+
+.pi-card__name {
+  font-size: $type-size-3;
+  font-weight: 700;
+  margin: 0 0 0.3em 0;
+  padding: 0;
+  border: none;
+}
+
+.pi-card__title {
+  font-size: $type-size-5;
+  color: var(--global-masthead-bg-color);
+  font-weight: 600;
+  margin: 0 0 0.3em 0;
+}
+
+.pi-card__dept {
+  font-size: $type-size-6;
+  color: var(--global-text-color-light);
+  margin: 0;
+}
+
+/* ---- Member grid ---- */
+
+.member-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.8em;
+  margin-top: 1.5em;
+}
+
+.member-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5em 1em;
+  text-decoration: none !important;
+  color: inherit;
+  border-radius: 8px;
+  background: var(--global-bg-color);
+  border: 1px solid var(--global-border-color);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    border-color: var(--global-masthead-bg-color);
+  }
+}
+
+.member-card__avatar {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1em;
+}
+
+.member-card__name {
+  font-size: $type-size-4;
+  font-weight: 600;
+  margin: 0 0 0.5em 0;
+  text-align: center;
+}
+
+.member-card__role {
+  display: inline-block;
+  padding: 0.25em 0.8em;
+  font-size: $type-size-7;
+  font-weight: 600;
+  border-radius: 999px;
+  letter-spacing: 0.3px;
+}
+
+.role-phd {
+  background: rgba(26, 54, 93, 0.12);
+  color: #1a365d;
+}
+
+.role-master {
+  background: rgba(43, 108, 176, 0.1);
+  color: #2b6cb0;
+}
+
 /*
    Social sharing
    ========================================================================== */
