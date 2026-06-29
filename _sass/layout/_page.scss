@@ -1,4 +1,4 @@
-/* ==========================================================================
+﻿/* ==========================================================================
    SINGLE PAGE/POST
    ========================================================================== */
 
@@ -51,9 +51,6 @@
 .page__content {
 
   h2 {
-    padding-bottom: 0.5em;
-    border-bottom: 1px solid var(--global-border-color);
-  }
 
   p, li, dl {
     font-size: 1em;
@@ -188,6 +185,23 @@
   a {
     color: #fff;
     text-decoration: none;
+  }
+}
+
+
+/* ---- Homepage sections ---- */
+
+.home-section {
+  padding: 0.5em 0 1.5em 0;
+
+  & + .home-section {
+    border-top: 1px solid var(--global-border-color);
+    padding-top: 2em;
+  }
+
+  h2 {
+    border-left: none;
+    padding-left: 0;
   }
 }
 
