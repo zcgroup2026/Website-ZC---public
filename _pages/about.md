@@ -8,7 +8,7 @@ redirect_from:
   - /about.html
 ---
 
-<div class="home-section">
+<div class="home-section" markdown="1">
 
 ## 个人简介
 
@@ -19,7 +19,7 @@ redirect_from:
 
 </div>
 
-<div class="home-section">
+<div class="home-section" markdown="1">
 
 ## 课题组介绍
 
@@ -27,7 +27,7 @@ redirect_from:
 
 </div>
 
-<div class="home-section">
+<div class="home-section" markdown="1">
 
 ## 最新动态
 
