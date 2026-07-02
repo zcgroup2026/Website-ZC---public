@@ -41,7 +41,6 @@ author_profile: false
     <button class="admin-btn" id="admin-login-btn">登 录</button>
     <p class="admin-error" id="admin-error">密码错误，请重试</p>
   </div>
-  <p class="admin-hint">初次使用请输入默认密码：<code>cailab2026</code>，登录后请在设置中修改。</p>
 </div>
 
 <script src="{{ site.baseurl }}/assets/js/admin.js"></script>
