@@ -22,6 +22,3 @@ main:
     
   - title: "加入我们"
     url: /join/
-
-  - title: "管理员入口"
-    url: /admin/

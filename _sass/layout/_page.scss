@@ -316,6 +316,24 @@
   background: rgba(43, 108, 176, 0.1);
   color: #2b6cb0;
 }
+
+/* ---- Admin corner link ---- */
+
+.admin-corner-link {
+  position: absolute;
+  top: 0.5em;
+  right: 1em;
+  font-size: 0.7em;
+  color: var(--global-text-color-light);
+  text-decoration: none;
+  opacity: 0.5;
+  font-weight: 500;
+
+  &:hover {
+    opacity: 0.85;
+    color: var(--global-masthead-bg-color);
+  }
+}
 /* ---- News cards ---- */
 
 .news-grid {
