@@ -28,11 +28,11 @@
 
   function showTokenBanner() {
     var banner = document.getElementById('token-banner');
+    if (!banner) return;
     if (!getToken()) {
       banner.style.display = 'block';
     } else {
       banner.style.display = 'none';
-      // Pre-fill token field
       var tf = document.getElementById('gh-token');
       if (tf) tf.value = getToken();
     }
@@ -41,6 +41,7 @@
   // ---- Helpers ----
   function showMsg(id, text, type) {
     var el = document.getElementById(id);
+    if (!el) return;
     el.textContent = text;
     el.className = 'msg msg-' + type;
     el.style.display = 'block';
@@ -50,17 +51,10 @@
   function formatDate(dateStr) {
     if (!dateStr) return '';
     var d = new Date(dateStr);
+    if (isNaN(d.getTime())) return dateStr;
     return d.getFullYear() + '-' +
       String(d.getMonth() + 1).padStart(2, '0') + '-' +
       String(d.getDate()).padStart(2, '0');
-  }
-
-  function slugify(text) {
-    return text.toLowerCase()
-      .replace(/[^\w\s-]/g, '')
-      .replace(/[\s_]+/g, '-')
-      .replace(/-+/g, '-')
-      .trim();
   }
 
   // ---- GitHub API ----
@@ -77,7 +71,6 @@
   }
 
   function ghPut(path, content, message) {
-    // First check if file exists (get its SHA)
     return ghGet(path).then(function(data) {
       return data.sha;
     }).catch(function() {
@@ -97,27 +90,6 @@
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(body)
-      }).then(function(r) {
-        if (!r.ok) throw new Error('GitHub API error: ' + r.status);
-        return r.json();
-      });
-    });
-  }
-
-  function ghDelete(path, message) {
-    return ghGet(path).then(function(data) {
-      return fetch(API_BASE + path, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': 'token ' + getToken(),
-          'Accept': 'application/vnd.github.v3+json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          message: message || 'update',
-          sha: data.sha,
-          branch: 'main'
-        })
       }).then(function(r) {
         if (!r.ok) throw new Error('GitHub API error: ' + r.status);
         return r.json();
@@ -150,10 +122,10 @@
 
   function loadNewsList() {
     var listEl = document.getElementById('news-list');
+    if (!listEl) return;
     listEl.innerHTML = '<p style="color:var(--global-text-color-light);">加载中...</p>';
 
     ghGet('_posts').then(function(files) {
-      // Filter .md files, reverse chronological
       var posts = files
         .filter(function(f) { return f.name.endsWith('.md') && f.name !== '.gitkeep'; })
         .sort(function(a, b) { return b.name.localeCompare(a.name); });
@@ -165,26 +137,36 @@
 
       var html = '';
       posts.forEach(function(p) {
-        // Decode content to get title
         var content = decodeURIComponent(escape(atob(p.content)));
         var titleMatch = content.match(/title:\s*"([^"]*)"/);
         var title = titleMatch ? titleMatch[1] : p.name.replace('.md', '');
         html += '<div class="file-item">' +
           '<div class="file-item-info">' +
-            '<span class="file-item-name">' + title + '</span>' +
-            '<span class="file-item-date">' + p.name.substring(0, 10) + '</span>' +
+            '<span class="file-item-name">' + escHtml(title) + '</span>' +
+            '<span class="file-item-date">' + escHtml(p.name.substring(0, 10)) + '</span>' +
           '</div>' +
-          '<button class="btn-sm" onclick="if(confirm(\\'确定删除新闻「' + title + '」？\\')) window._deleteNews(\\'' + p.name + '\\', \\'' + p.sha + '\\')">删除</button>' +
+          '<button class="btn-sm" data-action="delete-news" data-name="' + escAttr(p.name) + '" data-sha="' + escAttr(p.sha) + '">删除</button>' +
         '</div>';
       });
       listEl.innerHTML = html;
+
+      // Attach delete handlers via event delegation
+      listEl.querySelectorAll('[data-action="delete-news"]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var name = this.dataset.name;
+          var sha = this.dataset.sha;
+          var titleEl = this.parentElement.querySelector('.file-item-name');
+          var title = titleEl ? titleEl.textContent : name;
+          if (!confirm('确定删除新闻「' + title + '」？')) return;
+          deleteNews(name, sha);
+        });
+      });
     }).catch(function(err) {
-      listEl.innerHTML = '<p style="color:#e53e3e;">加载失败：' + err.message + '</p>';
+      listEl.innerHTML = '<p style="color:#e53e3e;">加载失败：' + escHtml(err.message) + '</p>';
     });
   }
 
-  // Expose delete function to inline onclick
-  window._deleteNews = function(name, sha) {
+  function deleteNews(name, sha) {
     var path = '_posts/' + name;
     fetch(API_BASE + path, {
       method: 'DELETE',
@@ -201,56 +183,61 @@
     }).catch(function(err) {
       showMsg('news-msg', '删除失败：' + err.message, 'error');
     });
-  };
+  }
 
-  // Preview filename
-  document.getElementById('news-slug').addEventListener('input', function() {
-    var date = document.getElementById('news-date').value;
-    var slug = this.value.trim();
-    var preview = document.getElementById('news-filename-preview');
-    if (slug && date) {
-      preview.textContent = '_posts/' + date + '-' + slug + '.md';
-    } else {
-      preview.textContent = '';
-    }
-  });
-  document.getElementById('news-date').addEventListener('input', function() {
-    document.getElementById('news-slug').dispatchEvent(new Event('input'));
-  });
+  function setupNewsForm() {
+    var slugEl = document.getElementById('news-slug');
+    var dateEl = document.getElementById('news-date');
+    var submitEl = document.getElementById('news-submit');
+    var previewEl = document.getElementById('news-filename-preview');
 
-  document.getElementById('news-submit').addEventListener('click', function() {
-    var token = getToken();
-    if (!token) {
-      showMsg('news-msg', '请先在「设置」中配置 GitHub Token', 'error');
-      return;
+    if (!slugEl || !dateEl || !submitEl) return;
+
+    function updatePreview() {
+      var date = dateEl.value;
+      var slug = slugEl.value.trim();
+      if (previewEl) {
+        previewEl.textContent = (slug && date) ? '_posts/' + date + '-' + slug + '.md' : '';
+      }
     }
 
-    var title = document.getElementById('news-title').value.trim();
-    var date = document.getElementById('news-date').value;
-    var slug = document.getElementById('news-slug').value.trim().toLowerCase().replace(/[^\w-]/g, '-').replace(/-+/g, '-');
-    var content = document.getElementById('news-content').value.trim();
-    var excerpt = document.getElementById('news-excerpt').value.trim();
+    slugEl.addEventListener('input', updatePreview);
+    dateEl.addEventListener('input', updatePreview);
 
-    if (!title || !date || !slug || !content) {
-      showMsg('news-msg', '请填写标题、日期、URL 标识和内容', 'error');
-      return;
-    }
+    submitEl.addEventListener('click', function() {
+      var token = getToken();
+      if (!token) { showMsg('news-msg', '请先在「设置」中配置 GitHub Token', 'error'); return; }
 
-    var path = newsFilename(slug, date);
-    var fileContent = buildNewsContent(title, date, excerpt, content);
+      var title = document.getElementById('news-title').value.trim();
+      var date = dateEl.value;
+      var slug = slugEl.value.trim().toLowerCase().replace(/[^\w-]/g, '-').replace(/-+/g, '-');
+      var content = document.getElementById('news-content').value.trim();
+      var excerpt = document.getElementById('news-excerpt').value.trim();
 
-    ghPut(path, fileContent, 'update: ' + title).then(function() {
-      showMsg('news-msg', '新闻「' + title + '」发布成功！片刻后刷新网站即可看到。', 'success');
-      // Clear form
-      document.getElementById('news-title').value = '';
-      document.getElementById('news-content').value = '';
-      document.getElementById('news-excerpt').value = '';
-      document.getElementById('news-filename-preview').textContent = '';
-      loadNewsList();
-    }).catch(function(err) {
-      showMsg('news-msg', '发布失败：' + err.message, 'error');
+      if (!title || !date || !slug || !content) {
+        showMsg('news-msg', '请填写标题、日期、URL 标识和内容', 'error');
+        return;
+      }
+
+      submitEl.disabled = true;
+      submitEl.textContent = '发布中...';
+
+      ghPut(newsFilename(slug, date), buildNewsContent(title, date, excerpt, content), 'update: ' + title)
+        .then(function() {
+          showMsg('news-msg', '新闻「' + title + '」发布成功！', 'success');
+          document.getElementById('news-title').value = '';
+          document.getElementById('news-content').value = '';
+          document.getElementById('news-excerpt').value = '';
+          if (previewEl) previewEl.textContent = '';
+          loadNewsList();
+        }).catch(function(err) {
+          showMsg('news-msg', '发布失败：' + err.message, 'error');
+        }).finally(function() {
+          submitEl.disabled = false;
+          submitEl.textContent = '发布新闻';
+        });
     });
-  });
+  }
 
   // ========== MEMBERS ==========
 
@@ -266,10 +253,10 @@
 
   function loadMemberList() {
     var listEl = document.getElementById('member-list');
+    if (!listEl) return;
     listEl.innerHTML = '<p style="color:var(--global-text-color-light);">加载中...</p>';
 
     ghGet('_pages').then(function(files) {
-      // Find student pages (exclude known non-member pages)
       var knownPages = ['404.md', 'about.md', 'admin.md', 'cv.md', 'dashboard.md',
         'join.md', 'markdown.md.bak', 'members.md', 'news.md',
         'portfolio.md', 'publications.html', 'research.html',
@@ -288,21 +275,27 @@
       members.forEach(function(m) {
         var slug = m.name.replace('.md', '');
         html += '<div class="file-item">' +
-          '<div class="file-item-info">' +
-            '<span class="file-item-name">' + slug + '</span>' +
-          '</div>' +
-          '<button class="btn-sm" onclick="if(confirm(\\'确定删除成员页面「' + slug + '」？\\')) window._deleteMember(\\'' + m.name + '\\', \\'' + m.sha + '\\')">删除</button>' +
+          '<div class="file-item-info"><span class="file-item-name">' + escHtml(slug) + '</span></div>' +
+          '<button class="btn-sm" data-action="delete-member" data-name="' + escAttr(m.name) + '" data-sha="' + escAttr(m.sha) + '">删除</button>' +
         '</div>';
       });
       listEl.innerHTML = html;
+
+      listEl.querySelectorAll('[data-action="delete-member"]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var name = this.dataset.name;
+          var sha = this.dataset.sha;
+          if (!confirm('确定删除成员页面「' + name.replace('.md', '') + '」？')) return;
+          deleteMember(name, sha);
+        });
+      });
     }).catch(function(err) {
-      listEl.innerHTML = '<p style="color:#e53e3e;">加载失败：' + err.message + '</p>';
+      listEl.innerHTML = '<p style="color:#e53e3e;">加载失败：' + escHtml(err.message) + '</p>';
     });
   }
 
-  window._deleteMember = function(name, sha) {
-    var path = '_pages/' + name;
-    fetch(API_BASE + path, {
+  function deleteMember(name, sha) {
+    fetch(API_BASE + '_pages/' + name, {
       method: 'DELETE',
       headers: {
         'Authorization': 'token ' + getToken(),
@@ -317,169 +310,183 @@
     }).catch(function(err) {
       showMsg('member-msg', '删除失败：' + err.message, 'error');
     });
-  };
+  }
 
-  document.getElementById('member-submit').addEventListener('click', function() {
-    var token = getToken();
-    if (!token) {
-      showMsg('member-msg', '请先在「设置」中配置 GitHub Token', 'error');
-      return;
-    }
+  function setupMemberForm() {
+    var submitEl = document.getElementById('member-submit');
+    if (!submitEl) return;
 
-    var name = document.getElementById('member-name').value.trim();
-    var slug = document.getElementById('member-slug').value.trim().toLowerCase().replace(/[^\w-]/g, '-').replace(/-+/g, '-');
-    var role = document.getElementById('member-role').value;
-    var bio = document.getElementById('member-bio').value.trim();
-    var avatar = document.getElementById('member-avatar').value.trim();
+    submitEl.addEventListener('click', function() {
+      var token = getToken();
+      if (!token) { showMsg('member-msg', '请先在「设置」中配置 GitHub Token', 'error'); return; }
 
-    if (!name || !slug || !bio || !avatar) {
-      showMsg('member-msg', '请填写所有字段', 'error');
-      return;
-    }
+      var name = document.getElementById('member-name').value.trim();
+      var slug = document.getElementById('member-slug').value.trim().toLowerCase().replace(/[^\w-]/g, '-').replace(/-+/g, '-');
+      var role = document.getElementById('member-role').value;
+      var bio = document.getElementById('member-bio').value.trim();
+      var avatar = document.getElementById('member-avatar').value.trim();
 
-    // 1. Create member page
-    var pageContent = [
-      '---',
-      'title: "' + name + '"',
-      'permalink: /' + slug + '/',
-      'layout: single',
-      'author_profile: false',
-      'sidebar: false',
-      '---',
-      '',
-      '<div class="member-page-header">',
-      '  <img src="{{ site.baseurl }}/assets/img/members/' + avatar + '"',
-      '       alt="' + name + '"',
-      '       style="width:180px; display:block; margin:0 auto 1.5em auto;">',
-      '  <h1 style="text-align:center; font-size:1.5em; margin-bottom:0.3em;">' + name + '</h1>',
-      '  <p style="text-align:center; color:var(--global-text-color-light);">' + memberRoleLabel(role) + '</p>',
-      '</div>',
-      '',
-      '<hr>',
-      '',
-      bio
-    ].join('\n');
+      if (!name || !slug || !bio || !avatar) {
+        showMsg('member-msg', '请填写所有字段', 'error');
+        return;
+      }
 
-    var pagePath = '_pages/' + slug + '.md';
+      submitEl.disabled = true;
+      submitEl.textContent = '添加中...';
 
-    ghPut(pagePath, pageContent, 'update: add member ' + name).then(function() {
-      // 2. Update members.md to add the member card
-      return ghGet('_pages/members.md').then(function(data) {
-        var membersContent = decodeURIComponent(escape(atob(data.content)));
-        var sha = data.sha;
+      var pageContent = [
+        '---',
+        'title: "' + name + '"',
+        'permalink: /' + slug + '/',
+        'layout: single',
+        'author_profile: false',
+        'sidebar: false',
+        '---',
+        '',
+        '<div class="member-page-header">',
+        '  <img src="{{ site.baseurl }}/assets/img/members/' + avatar + '"',
+        '       alt="' + name + '"',
+        '       style="width:180px; display:block; margin:0 auto 1.5em auto;">',
+        '  <h1 style="text-align:center; font-size:1.5em; margin-bottom:0.3em;">' + name + '</h1>',
+        '  <p style="text-align:center; color:var(--global-text-color-light);">' + memberRoleLabel(role) + '</p>',
+        '</div>',
+        '',
+        '<hr>',
+        '',
+        bio
+      ].join('\n');
 
-        // Build member card HTML
-        var cardHtml = [
-          '',
-          '  <a href="{{ site.baseurl }}/' + slug + '/" class="member-card">',
-          '    <img class="member-card__avatar" src="{{ site.baseurl }}/assets/img/members/' + avatar + '" alt="' + name + '">',
-          '    <h3 class="member-card__name">' + name + '</h3>',
-          '    <span class="member-card__role ' + memberRoleClass(role) + '">' + memberRoleLabel(role) + '</span>',
-          '  </a>'
-        ].join('\n');
+      ghPut('_pages/' + slug + '.md', pageContent, 'update: add member ' + name).then(function() {
+        return ghGet('_pages/members.md').then(function(data) {
+          var membersContent = decodeURIComponent(escape(atob(data.content)));
+          var cardHtml = '\n  <a href="{{ site.baseurl }}/' + slug + '/" class="member-card">\n' +
+            '    <img class="member-card__avatar" src="{{ site.baseurl }}/assets/img/members/' + avatar + '" alt="' + name + '">\n' +
+            '    <h3 class="member-card__name">' + name + '</h3>\n' +
+            '    <span class="member-card__role ' + memberRoleClass(role) + '">' + memberRoleLabel(role) + '</span>\n' +
+            '  </a>';
 
-        // Insert before last </div> in member-grid
-        var insertPos = membersContent.lastIndexOf('</div>');
-        if (insertPos === -1) insertPos = membersContent.length;
-        var newContent = membersContent.substring(0, insertPos) + cardHtml + '\n' + membersContent.substring(insertPos);
+          var insertPos = membersContent.lastIndexOf('</div>');
+          if (insertPos === -1) insertPos = membersContent.length;
+          var newContent = membersContent.substring(0, insertPos) + cardHtml + '\n' + membersContent.substring(insertPos);
 
-        var body = {
-          message: 'update: add ' + name + ' card',
-          content: btoa(unescape(encodeURIComponent(newContent))),
-          sha: sha,
-          branch: 'main'
-        };
-
-        return fetch(API_BASE + '_pages/members.md', {
-          method: 'PUT',
-          headers: {
-            'Authorization': 'token ' + getToken(),
-            'Accept': 'application/vnd.github.v3+json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(body)
-        }).then(function(r) {
-          if (!r.ok) throw new Error('Update members.md failed: ' + r.status);
-          return r.json();
+          return fetch(API_BASE + '_pages/members.md', {
+            method: 'PUT',
+            headers: {
+              'Authorization': 'token ' + getToken(),
+              'Accept': 'application/vnd.github.v3+json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              message: 'update: add ' + name + ' card',
+              content: btoa(unescape(encodeURIComponent(newContent))),
+              sha: data.sha,
+              branch: 'main'
+            })
+          }).then(function(r) {
+            if (!r.ok) throw new Error('Update members.md failed: ' + r.status);
+            return r.json();
+          });
         });
+      }).then(function() {
+        showMsg('member-msg', '成员「' + name + '」添加成功！', 'success');
+        document.getElementById('member-name').value = '';
+        document.getElementById('member-slug').value = '';
+        document.getElementById('member-bio').value = '';
+        document.getElementById('member-avatar').value = '';
+        loadMemberList();
+      }).catch(function(err) {
+        showMsg('member-msg', '添加失败：' + err.message, 'error');
+      }).finally(function() {
+        submitEl.disabled = false;
+        submitEl.textContent = '添加成员';
       });
-    }).then(function() {
-      showMsg('member-msg', '成员「' + name + '」添加成功！已同步更新成员页面和 members.md。', 'success');
-      document.getElementById('member-name').value = '';
-      document.getElementById('member-slug').value = '';
-      document.getElementById('member-bio').value = '';
-      document.getElementById('member-avatar').value = '';
-      loadMemberList();
-    }).catch(function(err) {
-      showMsg('member-msg', '添加失败：' + err.message, 'error');
     });
-  });
+  }
 
   // ========== SETTINGS ==========
 
-  // Token
-  document.getElementById('save-token').addEventListener('click', function() {
-    var token = document.getElementById('gh-token').value.trim();
-    if (!token) {
-      showMsg('token-msg', '请输入 Token', 'error');
-      return;
-    }
-    localStorage.setItem('cailab_gh_token', token);
-    showTokenBanner();
-    showMsg('token-msg', 'Token 已保存', 'success');
-  });
-
-  // Password change
-  document.getElementById('change-password').addEventListener('click', async function() {
-    var pwd = document.getElementById('new-password').value.trim();
-    var confirm = document.getElementById('confirm-password').value.trim();
-
-    if (!pwd || pwd.length < 6) {
-      showMsg('pwd-msg', '密码至少需要 6 个字符', 'error');
-      return;
-    }
-    if (pwd !== confirm) {
-      showMsg('pwd-msg', '两次输入的密码不一致', 'error');
-      return;
+  function setupSettings() {
+    var saveTokenEl = document.getElementById('save-token');
+    if (saveTokenEl) {
+      saveTokenEl.addEventListener('click', function() {
+        var token = document.getElementById('gh-token').value.trim();
+        if (!token) { showMsg('token-msg', '请输入 Token', 'error'); return; }
+        localStorage.setItem('cailab_gh_token', token);
+        showTokenBanner();
+        showMsg('token-msg', 'Token 已保存', 'success');
+      });
     }
 
-    var hashBuffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pwd));
-    var hashHex = Array.from(new Uint8Array(hashBuffer)).map(function(b) { return b.toString(16).padStart(2, '0'); }).join('');
-    localStorage.setItem('cailab_admin_pwd_hash', hashHex);
-    showMsg('pwd-msg', '密码已修改成功', 'success');
-    document.getElementById('new-password').value = '';
-    document.getElementById('confirm-password').value = '';
-  });
+    var changePwdEl = document.getElementById('change-password');
+    if (changePwdEl) {
+      changePwdEl.addEventListener('click', async function() {
+        var pwd = document.getElementById('new-password').value.trim();
+        var confirmPwd = document.getElementById('confirm-password').value.trim();
+        if (!pwd || pwd.length < 6) { showMsg('pwd-msg', '密码至少需要 6 个字符', 'error'); return; }
+        if (pwd !== confirmPwd) { showMsg('pwd-msg', '两次输入的密码不一致', 'error'); return; }
+        var hashBuffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pwd));
+        var hashHex = Array.from(new Uint8Array(hashBuffer)).map(function(b) { return b.toString(16).padStart(2, '0'); }).join('');
+        localStorage.setItem('cailab_admin_pwd_hash', hashHex);
+        showMsg('pwd-msg', '密码已修改成功', 'success');
+        document.getElementById('new-password').value = '';
+        document.getElementById('confirm-password').value = '';
+      });
+    }
+  }
 
-  // ========== TABS ==========
+  // ========== TABS (setup first!) ==========
 
   document.querySelectorAll('.dash-tab').forEach(function(tab) {
     tab.addEventListener('click', function() {
       document.querySelectorAll('.dash-tab').forEach(function(t) { t.classList.remove('active'); });
       document.querySelectorAll('.dash-panel').forEach(function(p) { p.classList.remove('active'); });
       this.classList.add('active');
-      document.getElementById(this.dataset.tab).classList.add('active');
+      var panel = document.getElementById(this.dataset.tab);
+      if (panel) panel.classList.add('active');
 
-      // Load data when switching tabs
       if (this.dataset.tab === 'tab-news') loadNewsList();
       if (this.dataset.tab === 'tab-members') loadMemberList();
     });
   });
 
   // ========== LOGOUT ==========
-  document.getElementById('dash-logout').addEventListener('click', function() {
-    localStorage.removeItem('cailab_admin_session');
-    localStorage.removeItem('cailab_admin_expiry');
-    window.location.href = BASEURL + '/admin/';
-  });
+
+  var logoutEl = document.getElementById('dash-logout');
+  if (logoutEl) {
+    logoutEl.addEventListener('click', function() {
+      localStorage.removeItem('cailab_admin_session');
+      localStorage.removeItem('cailab_admin_expiry');
+      window.location.href = BASEURL + '/admin/';
+    });
+  }
 
   // ========== INIT ==========
+
   showTokenBanner();
 
-  // Set today''s date as default
-  var today = new Date();
-  document.getElementById('news-date').value = formatDate(today.toISOString().split('T')[0]);
+  // Set default date
+  var dateEl = document.getElementById('news-date');
+  if (dateEl) {
+    var today = new Date();
+    dateEl.value = formatDate(today.toISOString().split('T')[0]);
+  }
 
+  // Setup forms
+  setupNewsForm();
+  setupMemberForm();
+  setupSettings();
+
+  // Load initial data
   loadNewsList();
+
+  // ========== HTML escape helpers ==========
+
+  function escHtml(str) {
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function escAttr(str) {
+    return String(str).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
 
 })();
