@@ -2,6 +2,7 @@
 title: "蔡子健课题组正式成立"
 date: 2026-06-10
 categories: news
+author_profile: false
 ---
 
 蔡子健博士正式加入中国科学院大学化学科学学院，担任副教授。
