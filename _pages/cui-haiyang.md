@@ -1,13 +1,13 @@
----
+﻿---
 title: 崔海洋 - 课题组成员
 permalink: /cui-haiyang/
 layout: single
-author_profile: true
+author_profile: false
 ---
 
 <div style="display: flex; gap: 2.5rem; margin: 2rem 0; align-items: flex-start; flex-wrap: wrap;">
   <div style="flex-shrink: 0;">
-    <img src="{{ site.baseurl }}/assets/img/members/cui-haiyang.jpg" alt="崔海洋" style="width: 180px; height: 180px; object-fit: cover;">
+    <img src="{{ site.baseurl }}/assets/img/members/cui-haiyang.jpg" alt="崔海洋" style="width: 180px;">
     <h3 style="text-align: center; margin-top: 1rem;">崔海洋</h3>
   </div>
   <div>
