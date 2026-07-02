@@ -125,7 +125,6 @@
     history.replaceState(null, null, '#' + tabName);
 
     // Load data
-    if (tabName === 'tab-news') loadNewsList();
     if (tabName === 'tab-members') loadMemberList();
   }
 
@@ -229,8 +228,7 @@
     }).then(function(r) {
       if (!r.ok) throw new Error('Delete failed: ' + r.status);
       showMsg('news-msg', '新闻已删除', 'success');
-      loadNewsList();
-    }).catch(function(err) {
+          }).catch(function(err) {
       showMsg('news-msg', '删除失败：' + err.message, 'error');
     });
   }
@@ -277,8 +275,7 @@
           document.getElementById('news-content').value = '';
           document.getElementById('news-excerpt').value = '';
           if (previewEl) previewEl.textContent = '';
-          loadNewsList();
-        }).catch(function(err) {
+                  }).catch(function(err) {
           showMsg('news-msg', '发布失败：' + err.message, 'error');
         }).finally(function() {
           submitEl.disabled = false;

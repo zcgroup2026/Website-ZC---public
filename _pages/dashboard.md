@@ -126,9 +126,6 @@ author_profile: false
       </div>
       <div class="msg" id="news-msg"></div>
     </div>
-
-    <h3 style="font-size:1.1em; margin-bottom:0.8em;">已发布新闻</h3>
-    <div class="file-list" id="news-list"><p style="color:var(--global-text-color-light);">加载中...</p></div>
   </div>
 
   <!-- ====== Members Tab ====== -->
