@@ -9,7 +9,6 @@ sidebar: false
 <div style="display: flex; gap: 2.5rem; margin: 2rem 0; align-items: flex-start; flex-wrap: wrap;">
   <div style="flex-shrink: 0;">
     <img src="{{ site.baseurl }}/assets/img/members/dong-li.jpg" alt="董力" style="width: 180px;">
-    <h3 style="text-align: center; margin-top: 1rem;">董力</h3>
   </div>
   <div>
     <h2>基本信息</h2>
