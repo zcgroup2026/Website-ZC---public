@@ -12,13 +12,26 @@ author_profile: false
   .dash-logout { font-size: 0.85em; color: var(--global-link-color); cursor: pointer; text-decoration: underline; }
   .dash-tabs { display: flex; gap: 0; border-bottom: 2px solid var(--global-border-color); margin-bottom: 2em; }
   .dash-tab {
-    padding: 0.7em 1.5em; font-size: 0.9em; font-weight: 600; cursor: pointer;
-    border: none; background: none; color: var(--global-text-color-light);
+    display: block; padding: 0.7em 1.5em; font-size: 0.9em; font-weight: 600;
+    text-decoration: none; color: var(--global-text-color-light);
     border-bottom: 2px solid transparent; margin-bottom: -2px;
+  }
+  .dash-tab:hover { color: var(--global-text-color); }
+  .dash-tab.active, .dash-panel:target ~ .dash-tabs .dash-tab[href="#tab-members"],
+  .dash-panel:target ~ .dash-tabs .dash-tab[href="#tab-settings"] {
+    /* handled by JS */
   }
   .dash-tab.active { color: var(--global-masthead-bg-color); border-bottom-color: var(--global-masthead-bg-color); }
   .dash-panel { display: none; }
-  .dash-panel.active { display: block; }
+  .dash-panel.active, .dash-panel:target { display: block; }
+
+  /* :target shows the right panel - need to also show first panel when no hash */
+  #tab-news { display: block; }
+  .dash-panel:target { display: block; }
+  .dash-panel:target ~ #tab-news { display: none; }
+  /* When a different panel is :target, hide news */
+  #tab-members:target ~ #tab-news,
+  #tab-settings:target ~ #tab-news { display: none; }
 
   /* Token setup */
   .token-banner { padding: 1em 1.2em; margin-bottom: 1.5em; background: #fffbeb; border: 1px solid #fbbf24; font-size: 0.85em; }
@@ -45,10 +58,7 @@ author_profile: false
   }
   .btn-primary:hover { opacity: 0.9; }
   .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
-  .btn-danger {
-    padding: 0.65em 1.8em; font-size: 0.9em; font-weight: 600;
-    border: none; cursor: pointer; background: #e53e3e; color: #fff;
-  }
+  .btn-danger { padding: 0.65em 1.8em; font-size: 0.9em; font-weight: 600; border: none; cursor: pointer; background: #e53e3e; color: #fff; }
 
   .msg { padding: 0.7em 1em; margin: 1em 0; font-size: 0.85em; display: none; }
   .msg-success { background: #f0fff4; border: 1px solid #48bb78; color: #276749; }
@@ -70,6 +80,10 @@ author_profile: false
   /* Settings */
   .settings-row { display: flex; gap: 1em; align-items: flex-end; }
   .settings-row .form-row { flex: 1; margin-bottom: 0; }
+
+  /* Auth overlay */
+  .auth-overlay { display: none; text-align: center; padding: 4em 2em; }
+  .auth-overlay a { font-weight: 600; }
 </style>
 
 <div class="dash-wrap">
@@ -82,10 +96,16 @@ author_profile: false
     <span class="dash-logout" id="dash-logout">退出登录</span>
   </div>
 
-  <div class="dash-tabs">
-    <button class="dash-tab active" data-tab="tab-news">📰 新闻管理</button>
-    <button class="dash-tab" data-tab="tab-members">👥 成员管理</button>
-    <button class="dash-tab" data-tab="tab-settings">⚙️ 设置</button>
+  <div class="dash-tabs" id="dash-tabs">
+    <a class="dash-tab active" href="#tab-news" data-tab="tab-news">📰 新闻管理</a>
+    <a class="dash-tab" href="#tab-members" data-tab="tab-members">👥 成员管理</a>
+    <a class="dash-tab" href="#tab-settings" data-tab="tab-settings">⚙️ 设置</a>
+  </div>
+
+  <!-- ====== Auth required overlay ====== -->
+  <div class="auth-overlay" id="auth-overlay">
+    <p style="font-size:1.2em; margin-bottom:1em;">🔐 请先登录</p>
+    <p><a href="/Website-ZC---public/admin/">点击此处前往管理员登录</a></p>
   </div>
 
   <!-- ====== News Tab ====== -->

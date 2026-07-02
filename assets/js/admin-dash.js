@@ -10,18 +10,23 @@
   var BASEURL = '/Website-ZC---public';
   var API_BASE = 'https://api.github.com/repos/' + REPO + '/contents/';
 
-  // ---- Auth Check ----
-  function checkAuth() {
+  // ---- Auth ----
+  function hasValidSession() {
     var session = localStorage.getItem('cailab_admin_session');
     var expiry = parseInt(localStorage.getItem('cailab_admin_expiry') || '0');
-    if (!session || Date.now() > expiry) {
-      window.location.href = BASEURL + '/admin/';
+    return !!(session && Date.now() <= expiry);
+  }
+
+  function requireAuth() {
+    if (!hasValidSession()) {
+      var overlay = document.getElementById('auth-overlay');
+      if (overlay) overlay.style.display = 'block';
+      // Hide all panels
+      document.querySelectorAll('.dash-panel').forEach(function(p) { p.classList.remove('active'); });
       return false;
     }
     return true;
   }
-
-  if (!checkAuth()) { return; }
 
   // ---- Token ----
   function getToken() { return localStorage.getItem('cailab_gh_token') || ''; }
@@ -50,8 +55,12 @@
 
   function formatDate(dateStr) {
     if (!dateStr) return '';
-    var d = new Date(dateStr);
-    if (isNaN(d.getTime())) return dateStr;
+    var d = new Date(dateStr + 'T00:00:00');
+    if (isNaN(d.getTime())) {
+      // Try parsing as-is
+      d = new Date(dateStr);
+      if (isNaN(d.getTime())) return dateStr;
+    }
     return d.getFullYear() + '-' +
       String(d.getMonth() + 1).padStart(2, '0') + '-' +
       String(d.getDate()).padStart(2, '0');
@@ -95,6 +104,47 @@
         return r.json();
       });
     });
+  }
+
+  // ========== TAB SWITCHING ==========
+
+  function switchTab(tabName) {
+    if (!requireAuth()) return;
+
+    // Update active tab link
+    document.querySelectorAll('.dash-tab').forEach(function(t) { t.classList.remove('active'); });
+    var activeTab = document.querySelector('.dash-tab[data-tab="' + tabName + '"]');
+    if (activeTab) activeTab.classList.add('active');
+
+    // Show the right panel
+    document.querySelectorAll('.dash-panel').forEach(function(p) { p.classList.remove('active'); });
+    var panel = document.getElementById(tabName);
+    if (panel) panel.classList.add('active');
+
+    // Update URL hash without scrolling
+    history.replaceState(null, null, '#' + tabName);
+
+    // Load data
+    if (tabName === 'tab-news') loadNewsList();
+    if (tabName === 'tab-members') loadMemberList();
+  }
+
+  document.querySelectorAll('.dash-tab').forEach(function(tab) {
+    tab.addEventListener('click', function(e) {
+      e.preventDefault();
+      switchTab(this.dataset.tab);
+    });
+  });
+
+  // Handle initial hash
+  function initTab() {
+    var hash = window.location.hash.replace('#', '');
+    var validTabs = ['tab-news', 'tab-members', 'tab-settings'];
+    if (validTabs.indexOf(hash) !== -1) {
+      switchTab(hash);
+    } else {
+      switchTab('tab-news');
+    }
   }
 
   // ========== NEWS ==========
@@ -145,14 +195,14 @@
             '<span class="file-item-name">' + escHtml(title) + '</span>' +
             '<span class="file-item-date">' + escHtml(p.name.substring(0, 10)) + '</span>' +
           '</div>' +
-          '<button class="btn-sm" data-action="delete-news" data-name="' + escAttr(p.name) + '" data-sha="' + escAttr(p.sha) + '">删除</button>' +
+          '<button class="btn-sm js-delete-news" data-name="' + escAttr(p.name) + '" data-sha="' + escAttr(p.sha) + '">删除</button>' +
         '</div>';
       });
       listEl.innerHTML = html;
 
-      // Attach delete handlers via event delegation
-      listEl.querySelectorAll('[data-action="delete-news"]').forEach(function(btn) {
+      listEl.querySelectorAll('.js-delete-news').forEach(function(btn) {
         btn.addEventListener('click', function() {
+          if (!requireAuth()) return;
           var name = this.dataset.name;
           var sha = this.dataset.sha;
           var titleEl = this.parentElement.querySelector('.file-item-name');
@@ -190,21 +240,20 @@
     var dateEl = document.getElementById('news-date');
     var submitEl = document.getElementById('news-submit');
     var previewEl = document.getElementById('news-filename-preview');
-
     if (!slugEl || !dateEl || !submitEl) return;
 
     function updatePreview() {
-      var date = dateEl.value;
-      var slug = slugEl.value.trim();
       if (previewEl) {
+        var date = dateEl.value;
+        var slug = slugEl.value.trim();
         previewEl.textContent = (slug && date) ? '_posts/' + date + '-' + slug + '.md' : '';
       }
     }
-
     slugEl.addEventListener('input', updatePreview);
     dateEl.addEventListener('input', updatePreview);
 
     submitEl.addEventListener('click', function() {
+      if (!requireAuth()) return;
       var token = getToken();
       if (!token) { showMsg('news-msg', '请先在「设置」中配置 GitHub Token', 'error'); return; }
 
@@ -221,7 +270,6 @@
 
       submitEl.disabled = true;
       submitEl.textContent = '发布中...';
-
       ghPut(newsFilename(slug, date), buildNewsContent(title, date, excerpt, content), 'update: ' + title)
         .then(function() {
           showMsg('news-msg', '新闻「' + title + '」发布成功！', 'success');
@@ -276,13 +324,14 @@
         var slug = m.name.replace('.md', '');
         html += '<div class="file-item">' +
           '<div class="file-item-info"><span class="file-item-name">' + escHtml(slug) + '</span></div>' +
-          '<button class="btn-sm" data-action="delete-member" data-name="' + escAttr(m.name) + '" data-sha="' + escAttr(m.sha) + '">删除</button>' +
+          '<button class="btn-sm js-delete-member" data-name="' + escAttr(m.name) + '" data-sha="' + escAttr(m.sha) + '">删除</button>' +
         '</div>';
       });
       listEl.innerHTML = html;
 
-      listEl.querySelectorAll('[data-action="delete-member"]').forEach(function(btn) {
+      listEl.querySelectorAll('.js-delete-member').forEach(function(btn) {
         btn.addEventListener('click', function() {
+          if (!requireAuth()) return;
           var name = this.dataset.name;
           var sha = this.dataset.sha;
           if (!confirm('确定删除成员页面「' + name.replace('.md', '') + '」？')) return;
@@ -317,6 +366,7 @@
     if (!submitEl) return;
 
     submitEl.addEventListener('click', function() {
+      if (!requireAuth()) return;
       var token = getToken();
       if (!token) { showMsg('member-msg', '请先在「设置」中配置 GitHub Token', 'error'); return; }
 
@@ -364,11 +414,9 @@
             '    <h3 class="member-card__name">' + name + '</h3>\n' +
             '    <span class="member-card__role ' + memberRoleClass(role) + '">' + memberRoleLabel(role) + '</span>\n' +
             '  </a>';
-
           var insertPos = membersContent.lastIndexOf('</div>');
           if (insertPos === -1) insertPos = membersContent.length;
           var newContent = membersContent.substring(0, insertPos) + cardHtml + '\n' + membersContent.substring(insertPos);
-
           return fetch(API_BASE + '_pages/members.md', {
             method: 'PUT',
             headers: {
@@ -409,6 +457,7 @@
     var saveTokenEl = document.getElementById('save-token');
     if (saveTokenEl) {
       saveTokenEl.addEventListener('click', function() {
+        if (!requireAuth()) return;
         var token = document.getElementById('gh-token').value.trim();
         if (!token) { showMsg('token-msg', '请输入 Token', 'error'); return; }
         localStorage.setItem('cailab_gh_token', token);
@@ -420,6 +469,7 @@
     var changePwdEl = document.getElementById('change-password');
     if (changePwdEl) {
       changePwdEl.addEventListener('click', async function() {
+        if (!requireAuth()) return;
         var pwd = document.getElementById('new-password').value.trim();
         var confirmPwd = document.getElementById('confirm-password').value.trim();
         if (!pwd || pwd.length < 6) { showMsg('pwd-msg', '密码至少需要 6 个字符', 'error'); return; }
@@ -433,21 +483,6 @@
       });
     }
   }
-
-  // ========== TABS (setup first!) ==========
-
-  document.querySelectorAll('.dash-tab').forEach(function(tab) {
-    tab.addEventListener('click', function() {
-      document.querySelectorAll('.dash-tab').forEach(function(t) { t.classList.remove('active'); });
-      document.querySelectorAll('.dash-panel').forEach(function(p) { p.classList.remove('active'); });
-      this.classList.add('active');
-      var panel = document.getElementById(this.dataset.tab);
-      if (panel) panel.classList.add('active');
-
-      if (this.dataset.tab === 'tab-news') loadNewsList();
-      if (this.dataset.tab === 'tab-members') loadMemberList();
-    });
-  });
 
   // ========== LOGOUT ==========
 
@@ -471,13 +506,27 @@
     dateEl.value = formatDate(today.toISOString().split('T')[0]);
   }
 
-  // Setup forms
+  // Setup forms (always, auth checked per-action)
   setupNewsForm();
   setupMemberForm();
   setupSettings();
 
-  // Load initial data
-  loadNewsList();
+  // Init tab (will check auth and possibly show overlay)
+  if (hasValidSession()) {
+    initTab();
+  } else {
+    var overlay = document.getElementById('auth-overlay');
+    if (overlay) overlay.style.display = 'block';
+    document.querySelectorAll('.dash-panel').forEach(function(p) { p.classList.remove('active'); });
+  }
+
+  // Handle hash change (browser back/forward)
+  window.addEventListener('hashchange', function() {
+    var hash = window.location.hash.replace('#', '');
+    if (['tab-news', 'tab-members', 'tab-settings'].indexOf(hash) !== -1) {
+      switchTab(hash);
+    }
+  });
 
   // ========== HTML escape helpers ==========
 
