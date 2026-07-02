@@ -1,5 +1,5 @@
 ﻿---
-title: 董力 - 课题组成员
+title: "董力"
 permalink: /dong-li/
 layout: single
 author_profile: false

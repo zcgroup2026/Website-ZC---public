@@ -1,5 +1,5 @@
 ﻿---
-title: 崔海洋 - 课题组成员
+title: "崔海洋"
 permalink: /cui-haiyang/
 layout: single
 author_profile: false

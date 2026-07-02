@@ -1,5 +1,5 @@
 ﻿---
-title: 靳依扬 - 课题组成员
+title: "靳依扬"
 permalink: /jin-yiyang/
 layout: single
 author_profile: false

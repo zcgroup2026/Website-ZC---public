@@ -1,5 +1,5 @@
 ﻿---
-title: 姜景栋 - 课题组成员
+title: "姜景栋"
 permalink: /jiang-jingdong/
 layout: single
 author_profile: false
