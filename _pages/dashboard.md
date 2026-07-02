@@ -17,23 +17,9 @@ author_profile: false
     border-bottom: 2px solid transparent; margin-bottom: -2px;
   }
   .dash-tab:hover { color: var(--global-text-color); }
-  .dash-tab.active, .dash-panel:target ~ .dash-tabs .dash-tab[href="#tab-members"],
-  .dash-panel:target ~ .dash-tabs .dash-tab[href="#tab-settings"] {
-    /* handled by JS */
-  }
   .dash-tab.active { color: var(--global-masthead-bg-color); border-bottom-color: var(--global-masthead-bg-color); }
   .dash-panel { display: none; }
-  .dash-panel.active, .dash-panel:target { display: block; }
-
-  /* :target shows the right panel - need to also show first panel when no hash */
-  #tab-news { display: block; }
-  .dash-panel:target { display: block; }
-  .dash-panel:target ~ #tab-news { display: none; }
-  /* When a different panel is :target, hide news */
-  #tab-members:target ~ #tab-news,
-  #tab-settings:target ~ #tab-news { display: none; }
-
-  /* Token setup */
+  .dash-panel.active { display: block; }
   .token-banner { padding: 1em 1.2em; margin-bottom: 1.5em; background: #fffbeb; border: 1px solid #fbbf24; font-size: 0.85em; }
   .token-banner code { background: #fef3c7; padding: 0.15em 0.4em; }
   .token-banner a { font-weight: 600; }
