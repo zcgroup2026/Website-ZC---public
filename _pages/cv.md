@@ -1,4 +1,4 @@
----
+﻿---
 layout: archive
 title: "CV"
 permalink: /cv/
@@ -10,7 +10,7 @@ redirect_from:
 {% include base_path %}
 
 Education
-======
+------
 * Ph.D. in Materials Science and Engineering, University of California at Berkeley (UCB), Aug. 2018 — Dec. 2022  
   * Material Sciences Division, Lawrence Berkeley National Laboratory (LBNL)  
   * Research advisor: Prof. Gerbrand Ceder  
@@ -22,7 +22,7 @@ Education
 
 
 Work experience
-======
+------
 * Jan. 2026 — present: Associate Professor  
   * School of Chemical Sciences  
   * University of Chinese Academy of Sciences
@@ -37,14 +37,14 @@ Work experience
 
 
 Teaching experience
-======
+------
 * Phase Transformations and Kinetics (UCB, undergraduate level course MSE 103), TA  
 * Physical Chemistry II (USTC, undergraduate level course), TA  
 * Experiment of Physical Chemistry I (USTC, undergraduate level course), TA
 
 
 Honors
-======
+------
 * Charles Hatchett Award  
 * Materials Research Society (MRS) Best Poster Award  
 * National Scholarship of China (国家奖学金), 2016–2017  

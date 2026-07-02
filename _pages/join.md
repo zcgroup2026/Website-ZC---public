@@ -1,4 +1,4 @@
----
+﻿---
 layout: archive
 title: "加入我们"
 permalink: /join/
@@ -66,7 +66,7 @@ redirect_from:
 2026年秋季入学博士报名时间：2025年12月8日～2026年1月9日。
 本次网报包括硕博连读转博考核报名（生源范围为第四学期本校在学硕士生，即2024年秋季入学硕士生）和普通招考两种招生方式。
 逾期不再受理补报。
-1、报名https://admission.ucas.ac.cn
-2、材料接收地址及注意事项https://chem.ucas.edu.cn/index.php/zh-cn/zsxx/2016-03-28-08-09-27/7243-2025-12-05-03-40-53
-3、化学科学学院2026年博士招考实施方案https://chem.ucas.edu.cn/index.php/zh-cn/zsxx/2016-03-28-08-09-27/7225-2026-3
-4、中国科学院大学2026年秋季入学博士招生https://admission.ucas.ac.cn/ShowArticle/Article/94e6b364-4d3b-4e7c-9eea-37bb18b5ace0/af494336-1230-4340-9032-2ecd2cd1c3eb
+1. [报名](https://admission.ucas.ac.cn)
+2. [材料接收地址及注意事项](https://chem.ucas.edu.cn/index.php/zh-cn/zsxx/2016-03-28-08-09-27/7243-2025-12-05-03-40-53)
+3. [化学科学学院2026年博士招考实施方案](https://chem.ucas.edu.cn/index.php/zh-cn/zsxx/2016-03-28-08-09-27/7225-2026-3)
+4. [中国科学院大学2026年秋季入学博士招生](https://admission.ucas.ac.cn/ShowArticle/Article/94e6b364-4d3b-4e7c-9eea-37bb18b5ace0/af494336-1230-4340-9032-2ecd2cd1c3eb)
