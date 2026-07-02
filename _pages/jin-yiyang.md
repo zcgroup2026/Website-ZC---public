@@ -3,6 +3,7 @@ title: 靳依扬 - 课题组成员
 permalink: /jin-yiyang/
 layout: single
 author_profile: false
+sidebar: false
 ---
 
 <div style="display: flex; gap: 2.5rem; margin: 2rem 0; align-items: flex-start; flex-wrap: wrap;">
