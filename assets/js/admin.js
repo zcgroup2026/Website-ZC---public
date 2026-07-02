@@ -7,7 +7,7 @@
   'use strict';
 
   // SHA-256 hash of default password "cailab2026"
-  var DEFAULT_HASH = '2a3e1f5b8c9d0e7f6a5b4c3d2e1f0a9b8c7d6e5f4a3b2c1d0e9f8a7b6c5d4e';
+  var DEFAULT_HASH = 'f43215ec25448ddbf69209700ecd030c1d3480019eb4d133b03a7766397dd7bf';
 
   function getStoredHash() {
     return localStorage.getItem('cailab_admin_pwd_hash') || DEFAULT_HASH;
