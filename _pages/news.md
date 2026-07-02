@@ -2,7 +2,7 @@
 layout: archive
 title: "课题组动态"
 permalink: /news/
-author_profile: true
+author_profile: false
 ---
 
 {% include base_path %}
