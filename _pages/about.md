@@ -1,4 +1,4 @@
-﻿---
+---
 layout: single
 permalink: /
 title: "Welcome To Cai Group"
@@ -7,6 +7,39 @@ redirect_from:
   - /about/
   - /about.html
 ---
+
+<!-- ====== 滚动轮播 ====== -->
+<div class="hero-carousel" id="heroCarousel">
+  <div class="hero-slide active" style="background-image: url('{{ site.baseurl }}/images/talk1.png');">
+    <div class="hero-slide__overlay">
+      <h2 class="hero-slide__title">人工智能自动化实验室</h2>
+      <p class="hero-slide__desc">面向高通量新材料发现，构建"自驱动"的机器人合成与表征平台</p>
+    </div>
+  </div>
+  <div class="hero-slide" style="background-image: url('{{ site.baseurl }}/images/talk2.png');">
+    <div class="hero-slide__overlay">
+      <h2 class="hero-slide__title">先进锂离子电池材料</h2>
+      <p class="hero-slide__desc">结合先进表征与理论预测，开发高性能正极材料与固态电解质</p>
+    </div>
+  </div>
+  <div class="hero-slide" style="background-image: url('{{ site.baseurl }}/images/yq1.png');">
+    <div class="hero-slide__overlay">
+      <h2 class="hero-slide__title">课题组实验室设备</h2>
+      <p class="hero-slide__desc">完善的合成、表征与电化学测试平台，支撑前沿材料研究</p>
+    </div>
+  </div>
+
+  <!-- 左右箭头 -->
+  <button class="hero-arrow hero-arrow--left" id="heroPrev" aria-label="上一张">&#10094;</button>
+  <button class="hero-arrow hero-arrow--right" id="heroNext" aria-label="下一张">&#10095;</button>
+
+  <!-- 导航点 -->
+  <div class="hero-dots" id="heroDots">
+    <span class="hero-dot active" data-index="0"></span>
+    <span class="hero-dot" data-index="1"></span>
+    <span class="hero-dot" data-index="2"></span>
+  </div>
+</div>
 
 <div class="home-section" markdown="1">
 
@@ -39,3 +72,5 @@ redirect_from:
 {% endfor %}
 
 </div>
+
+<script src="{{ site.baseurl }}/assets/js/carousel.js"></script>
