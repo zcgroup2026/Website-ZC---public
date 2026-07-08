@@ -5,6 +5,7 @@
 .masthead {
   position: fixed;
   background: var(--global-masthead-bg-color);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   height: fit-content;
   top: 0;
   width: 100%;

@@ -95,11 +95,12 @@
 
   img {
     max-width: 175px;
-    border-radius: 50%;
+    border-radius: 0;
 
     @include breakpoint($large) {
       padding: 5px;
       border: 2px solid var(--global-masthead-bg-color);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
   }
 }
@@ -249,10 +250,10 @@
 
   a {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 3px;
     padding-right: 5px;
-    padding-top: 2px;
-    padding-bottom: 2px;
+    padding-top: 3px;
+    padding-bottom: 3px;
     color: inherit;
     font-size: $type-size-5;
     text-decoration: none;

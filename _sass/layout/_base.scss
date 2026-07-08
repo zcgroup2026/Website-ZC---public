@@ -38,9 +38,9 @@ h1 {
 
 h2 {
   font-size: $type-size-4;
-  padding-left: 0.6em;
+  font-weight: 700;
+  padding-left: 0.65em;
   border-left: 3px solid var(--global-masthead-bg-color);
-}
 
 h3 {
   font-size: $type-size-5;
