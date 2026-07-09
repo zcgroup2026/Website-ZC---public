@@ -9,10 +9,10 @@
 # Basic Site Settings
 locale                   : "zh-CN"
 site_theme               : "default" # Currently available options are "default", "air"
-title                    : "蔡子健课题组"
+title                    : "钄″瓙鍋ヨ棰樼粍"
 title_separator          : "-"
-name                     : &name "蔡子健"
-description              : &description "中国科学院大学化学科学学院"   # Update this with a general description of your site, this is the default if not overridden by a page
+name                     : &name "钄″瓙鍋?
+description              : &description "涓浗绉戝闄㈠ぇ瀛﹀寲瀛︾瀛﹀闄?   # Update this with a general description of your site, this is the default if not overridden by a page
 url                      : https://zcgroup2026.github.io # The base hostname & protocol for your site e.g. "https://[your GitHub username].github.io",
                                                            # or if you already have some other page hosted on Github then use "https://[your GitHub username].github.io/[Your Repo Name]"
 baseurl                  : "/Website-ZC---public" # the subpath of your site, e.g. "/blog"
@@ -24,10 +24,10 @@ repository               : "zcgroup2026/Website-ZC---public"
 author:
   # Biographic information
   avatar           : "caicai.png"
-  name             : "蔡子健"
+  name             : "钄″瓙鍋?
   pronouns         : # example: "she/her"  
-  bio              : "副教授"
-  location         : "中国科学院大学化学科学学院"
+  bio              : "鍓暀鎺?
+  location         : "涓浗绉戝闄㈠ぇ瀛﹀寲瀛︾瀛﹀闄?
   uri              : # URL
   email            : "zjcai@berkeley.edu" 
 
@@ -84,7 +84,7 @@ publication_category:
 
 # Site Settings
 teaser                   :  # filename of teaser fallback teaser image placed in /images/ for social media previews
-breadcrumbs              : false # true, false (default)
+breadcrumbs              : true # true, false (default)
 words_per_minute         : 160
 future                   : true
 read_more                : "disabled" # if enabled, adds "Read more" links to excerpts
