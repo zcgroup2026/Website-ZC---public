@@ -195,7 +195,7 @@
 .hero-carousel {
   position: relative;
   width: 100%;
-  height: 420px;
+  height: 460px;
   overflow: hidden;
   background: #0a1628;
   margin-bottom: 2em;
@@ -301,6 +301,14 @@
   background: rgba(255, 255, 255, 0.8);
 }
 
+.hero-dot-progress {
+  position: absolute;
+  bottom: -4px; left: 0;
+  height: 2px;
+  width: 0;
+  background: #fff;
+}
+
 @media (max-width: 768px) {
   .hero-carousel { height: 300px; }
   .hero-slide__title { font-size: 1.2em; }
@@ -308,6 +316,90 @@
   .hero-slide__overlay { padding: 2em 1.2em 1.5em; }
   .hero-arrow { width: 36px; height: 36px; font-size: 1em; }
 }
+/* ---- Research cards (Ceder style) ---- */
+
+.research-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2em;
+  margin-top: 1em;
+}
+
+.research-card {
+  border: 1px solid var(--global-border-color);
+  background: var(--global-bg-color);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+
+  &:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+}
+
+.research-card__link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.research-card__image {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  background: var(--global-footer-bg-color);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+}
+
+.research-card__placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--global-text-color-light);
+  font-size: 2.5em;
+}
+
+.research-card__body {
+  padding: 1.3em 1.5em 1.5em;
+}
+
+.research-card__title {
+  font-size: $type-size-4;
+  font-weight: 700;
+  margin: 0 0 0.4em 0;
+  padding: 0;
+  border: none;
+  line-height: 1.4;
+  color: var(--global-text-color);
+  transition: color 0.2s ease;
+}
+
+.research-card:hover .research-card__title {
+  color: var(--global-masthead-bg-color);
+}
+
+.research-card__excerpt {
+  font-size: $type-size-6;
+  color: var(--global-text-color-light);
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .research-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5em;
+  }
+  .research-card__image { height: 180px; }
+}
+
 /* ---- Homepage sections ---- */
 
 .home-section {
@@ -332,6 +424,71 @@
   }
 }
 
+
+/* ---- Home news list ---- */
+
+.home-news-list {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.3em;
+}
+
+.home-news-item {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  padding: 0.85em 0;
+  text-decoration: none;
+  color: inherit;
+  border-bottom: 1px solid var(--global-border-color);
+  transition: padding-left 0.2s ease, color 0.2s ease;
+
+  &:last-child { border-bottom: none; }
+
+  &:hover {
+    padding-left: 0.5em;
+    color: var(--global-masthead-bg-color);
+  }
+}
+
+.home-news-item__date {
+  font-size: $type-size-7;
+  font-weight: 600;
+  color: var(--global-text-color-light);
+  white-space: nowrap;
+  min-width: 5.5em;
+  letter-spacing: 0.3px;
+}
+
+.home-news-item__title {
+  flex: 1;
+  font-size: $type-size-5;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.home-news-item__arrow {
+  font-size: 1.2em;
+  color: var(--global-text-color-light);
+  transition: transform 0.2s ease;
+}
+
+.home-news-item:hover .home-news-item__arrow {
+  transform: translateX(3px);
+  color: var(--global-masthead-bg-color);
+}
+
+.home-view-all {
+  font-size: $type-size-7;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--global-masthead-bg-color);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  transition: opacity 0.2s ease;
+
+  &:hover { opacity: 0.75; }
+}
 
 /* ---- PI card ---- */
 

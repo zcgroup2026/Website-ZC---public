@@ -1,6 +1,9 @@
 ---
 title: "先进锂离子电池材料开发"
+header:
+  teaser: /images/talk2.png
 ---
+
 <p align="center">
   <img src="{{ site.baseurl }}/images/talk2.png" style="max-width:100%" alt="锂离子电池材料">
 </p>

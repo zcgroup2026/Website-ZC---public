@@ -121,10 +121,10 @@
 }
 
 .author__name {
-  margin: 0;
-
+  font-size: $type-size-4;
+  font-weight: 700;
   @include breakpoint($large) {
-    margin-top: 10px;
+  margin: 0.2em 0 0;
     margin-bottom: 10px;
   }
 }
@@ -150,7 +150,7 @@
 }
 
 .author__bio {
-  margin: 0;
+  font-size: $type-size-6;
 
   @include breakpoint($large) {
     margin-top: 10px;

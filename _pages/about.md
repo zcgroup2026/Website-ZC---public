@@ -29,16 +29,27 @@ redirect_from:
     </div>
   </div>
 
-  <!-- 左右箭头 -->
   <button class="hero-arrow hero-arrow--left" id="heroPrev" aria-label="上一张">&#10094;</button>
   <button class="hero-arrow hero-arrow--right" id="heroNext" aria-label="下一张">&#10095;</button>
 
-  <!-- 导航点 -->
   <div class="hero-dots" id="heroDots">
     <span class="hero-dot active" data-index="0"></span>
     <span class="hero-dot" data-index="1"></span>
     <span class="hero-dot" data-index="2"></span>
   </div>
+</div>
+
+<!-- ====== 研究领域卡片 ====== -->
+<div class="home-section" markdown="1">
+
+## 研究方向
+
+</div>
+
+<div class="research-grid" style="margin-top: 0; margin-bottom: 2em;">
+{% for post in site.research %}
+  {% include research-card.html %}
+{% endfor %}
 </div>
 
 <div class="home-section" markdown="1">
@@ -64,13 +75,20 @@ redirect_from:
 
 ## 最新动态
 
-{% for post in site.posts limit: 3 %}
-  <div style="margin-bottom: 1.5em;">
-    <strong>{{ post.date | date: "%Y-%m-%d" }}</strong> 
-    <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-  </div>
-{% endfor %}
+</div>
 
+<div class="home-news-list">
+{% for post in site.posts limit: 3 %}
+  <a href="{{ post.url | relative_url }}" class="home-news-item">
+    <span class="home-news-item__date">{{ post.date | date: "%Y-%m-%d" }}</span>
+    <span class="home-news-item__title">{{ post.title }}</span>
+    <span class="home-news-item__arrow">&rarr;</span>
+  </a>
+{% endfor %}
+</div>
+
+<div style="text-align: right; margin-top: 0.8em;">
+  <a href="{{ site.baseurl }}/news/" class="home-view-all">查看全部动态 &rarr;</a>
 </div>
 
 <script src="{{ site.baseurl }}/assets/js/carousel.js"></script>

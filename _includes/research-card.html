@@ -1,0 +1,21 @@
+<div class="research-card">
+  <a href="{{ post.url | relative_url }}" class="research-card__link">
+    <div class="research-card__image">
+      {% if post.header.teaser %}
+        <img src="{{ post.header.teaser | relative_url }}" alt="{{ post.title }}">
+      {% elsif post.header.image %}
+        <img src="{{ post.header.image | relative_url }}" alt="{{ post.title }}">
+      {% else %}
+        <div class="research-card__placeholder">
+          <i class="fas fa-flask"></i>
+        </div>
+      {% endif %}
+    </div>
+    <div class="research-card__body">
+      <h3 class="research-card__title">{{ post.title }}</h3>
+      {% if post.excerpt %}
+        <p class="research-card__excerpt">{{ post.excerpt | strip_html | truncate: 100 }}</p>
+      {% endif %}
+    </div>
+  </a>
+</div>

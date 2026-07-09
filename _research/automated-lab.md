@@ -1,6 +1,9 @@
 ---
 title: "面向高通量新材料发现的自动化实验室"
+header:
+  teaser: /images/talk1.png
 ---
+
 <p align="center">
  <img src="{{ site.baseurl }}/images/talk1.png" style="max-width:100%" alt="自动化实验室">
 </p>
