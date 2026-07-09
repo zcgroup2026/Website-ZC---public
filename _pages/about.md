@@ -39,18 +39,6 @@ redirect_from:
   </div>
 </div>
 
-<!-- ====== 研究领域卡片 ====== -->
-<div class="home-section" markdown="1">
-
-## 研究方向
-
-</div>
-
-<div class="research-grid" style="margin-top: 0; margin-bottom: 2em;">
-{% for post in site.research %}
-  {% include research-card.html %}
-{% endfor %}
-</div>
 
 <div class="home-section" markdown="1">
 
