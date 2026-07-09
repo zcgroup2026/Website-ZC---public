@@ -84,7 +84,7 @@
     if (sha) {
       var body = {
         message: message || 'update',
-        content: btoa(unescape(encodeURIComponent(content))),
+        content: b64encode(),
         branch: 'main',
         sha: sha
       };
@@ -108,7 +108,7 @@
     }).then(function(existingSha) {
       var body = {
         message: message || 'update',
-        content: btoa(unescape(encodeURIComponent(content))),
+        content: b64encode(),
         branch: 'main'
       };
       if (existingSha) body.sha = existingSha;
@@ -214,7 +214,7 @@
 
       var html = '';
       posts.forEach(function(p) {
-        var content = decodeURIComponent(escape(atob(p.content)));
+        var content = b64decode();
         var parsed = parseNewsFrontmatter(content);
         var title = parsed ? parsed.title : p.name.replace('.md', '');
         html += '<div class="file-item">' +
@@ -253,7 +253,7 @@
     var msgEl = document.getElementById('news-msg'); msgEl.style.display = 'none';
 
     ghGet('_posts/' + name).then(function(data) {
-      var raw = decodeURIComponent(escape(atob(data.content)));
+      var raw = b64decode();
       var parsed = parseNewsFrontmatter(raw);
       if (!parsed) { showMsg('news-msg', '无法解析新闻文件', 'error'); return; }
 
@@ -436,7 +436,7 @@
 
       var html = '';
       members.forEach(function(m) {
-        var content = decodeURIComponent(escape(atob(m.content)));
+        var content = b64decode();
         var parsed = parseMemberFrontmatter(content);
         var displayName = parsed ? parsed.title : m.name.replace('.md', '');
         html += '<div class="file-item">' +
@@ -472,7 +472,7 @@
     var msgEl = document.getElementById('member-msg'); msgEl.style.display = 'none';
 
     ghGet('_pages/' + name).then(function(data) {
-      var raw = decodeURIComponent(escape(atob(data.content)));
+      var raw = b64decode();
       var parsed = parseMemberFrontmatter(raw);
       if (!parsed) { showMsg('member-msg', '无法解析成员文件', 'error'); return; }
 
@@ -694,6 +694,22 @@
   });
 
   // ========== HTML escape helpers ==========
+
+    function b64decode(str) {
+    // Strip whitespace that GitHub API inserts into base64
+    var cleaned = String(str).replace(/\s/g, '');
+    var binary = atob(cleaned);
+    var bytes = new Uint8Array(binary.length);
+    for (var i = 0; i < binary.length; i++) { bytes[i] = binary.charCodeAt(i); }
+    return new TextDecoder('utf-8').decode(bytes);
+  }
+
+  function b64encode(str) {
+    var bytes = new TextEncoder().encode(str);
+    var binary = '';
+    for (var i = 0; i < bytes.length; i++) { binary += String.fromCharCode(bytes[i]); }
+    return btoa(binary);
+  }
 
   function escHtml(str) {
     return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
