@@ -4,6 +4,11 @@ permalink: /jin-yiyang/
 layout: single
 author_profile: false
 sidebar: false
+role: phd
+year: 2026
+education: "哈尔滨工业大学 学士 | 哈尔滨工业大学 硕士"
+email: "yiyang.jin@outlook.com"
+research: ""
 ---
 
 <a href="{{ site.baseurl }}/members/" class="profile-back-link">&larr; 返回成员列表</a>
@@ -23,8 +28,11 @@ sidebar: false
       <dl>
         <dt>身份</dt><dd>博士研究生</dd>
         <dt>入学年份</dt><dd>2026</dd>
-        <dt>学习经历</dt><dd>哈尔滨工业大学 学士 | 哈尔滨工业大学 硕士</dd>
-        <dt>邮箱</dt><dd><a href="mailto:yiyang.jin@outlook.com">yiyang.jin@outlook.com</a></dd>
+        <dt>学习经历</dt><dd>{{ page.education }}</dd>
+        <dt>邮箱</dt><dd><a href="mailto:{{ page.email }}">{{ page.email }}</a></dd>
+        {% if page.research != "" %}
+        <dt>研究方向</dt><dd>{{ page.research }}</dd>
+        {% endif %}
       </dl>
     </div>
   </div>

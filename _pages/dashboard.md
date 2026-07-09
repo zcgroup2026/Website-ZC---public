@@ -138,7 +138,7 @@ author_profile: false
   <!-- ====== Members Tab ====== -->
   <div class="dash-panel" id="tab-members">
     <div class="dash-form">
-      <h2>添加课题组成员</h2>
+      <h2 id="member-form-title">添加课题组成员</h2>
       <div class="form-row">
         <label>姓名</label>
         <input type="text" id="member-name" placeholder="例如：张三">
@@ -159,10 +159,22 @@ author_profile: false
         </div>
       </div>
       <div class="form-row">
-        <label>个人简介（支持 Markdown）</label>
-        <textarea id="member-bio" placeholder="研究方向、教育背景等..."></textarea>
+        <label>入学年份</label>
+        <input type="text" id="member-year" placeholder="例如：2026">
       </div>
       <div class="form-row">
+        <label>学习经历</label>
+        <input type="text" id="member-education" placeholder="例如：北京大学 学士 | 清华大学 硕士">
+      </div>
+      <div class="form-row">
+        <label>邮箱</label>
+        <input type="text" id="member-email" placeholder="例如：zhangsan@ucas.ac.cn">
+      </div>
+      <div class="form-row">
+        <label>研究方向</label>
+        <input type="text" id="member-research" placeholder="例如：锂离子电池正极材料">
+      </div>
+      <div class="form-row" id="member-avatar-row">
         <label>头像文件名（请先将图片上传至 <code>assets/img/members/</code>）</label>
         <input type="text" id="member-avatar" placeholder="例如：zhang-san.jpg">
       </div>
@@ -171,7 +183,7 @@ author_profile: false
       <div class="msg" id="member-msg"></div>
     </div>
 
-    <h3 style="font-size:1.1em; margin-bottom:0.8em;">现有成员页面</h3>
+    <h3 style="font-size:1.1em; margin-bottom:0.8em;">现有成员页面</h3></h3>
     <div class="file-list" id="member-list"><p style="color:var(--global-text-color-light);">加载中...</p></div>
   </div>
 
@@ -211,4 +223,4 @@ author_profile: false
   </div>
 </div>
 
-<script src="{{ site.baseurl }}/assets/js/admin-dash.js?v=6"></script>
+<script src="{{ site.baseurl }}/assets/js/admin-dash.js?v=7"></script>

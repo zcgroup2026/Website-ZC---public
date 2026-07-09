@@ -4,6 +4,11 @@ permalink: /dong-li/
 layout: single
 author_profile: false
 sidebar: false
+role: master
+year: 2026
+education: "华南理工大学 学士"
+email: "17806281073@163.com"
+research: ""
 ---
 
 <a href="{{ site.baseurl }}/members/" class="profile-back-link">&larr; 返回成员列表</a>
@@ -23,9 +28,12 @@ sidebar: false
       <dl>
         <dt>身份</dt><dd>硕士研究生</dd>
         <dt>入学年份</dt><dd>2026</dd>
-        <dt>学习经历</dt><dd>盐城工学院 学士</dd>
-        <dt>邮箱</dt><dd><a href="mailto:dongli@stu.ycit.edu.cn">dongli@stu.ycit.edu.cn</a></dd>
+        <dt>学习经历</dt><dd>{{ page.education }}</dd>
+        <dt>邮箱</dt><dd><a href="mailto:{{ page.email }}">{{ page.email }}</a></dd>
+        {% if page.research != "" %}
+        <dt>研究方向</dt><dd>{{ page.research }}</dd>
+        {% endif %}
       </dl>
     </div>
   </div>
-</div>�
+</div>
