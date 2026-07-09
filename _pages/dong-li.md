@@ -23,9 +23,9 @@ sidebar: false
       <dl>
         <dt>身份</dt><dd>硕士研究生</dd>
         <dt>入学年份</dt><dd>2026</dd>
-        <dt>学习经历</dt><dd>海南大学 学士</dd>
-        <dt>邮箱</dt><dd><a href="mailto:1665540605@qq.com">1665540605@qq.com</a></dd>
+        <dt>学习经历</dt><dd>盐城工学院 学士</dd>
+        <dt>邮箱</dt><dd><a href="mailto:dongli@stu.ycit.edu.cn">dongli@stu.ycit.edu.cn</a></dd>
       </dl>
     </div>
   </div>
-</div>
+</div>�
