@@ -58,6 +58,11 @@ author_profile: false
   .file-item-name { font-weight: 600; }
   .file-item-date { font-size: 0.8em; color: var(--global-text-color-light); margin-left: 0.5em; }
   .btn-sm { padding: 0.3em 0.8em; font-size: 0.8em; cursor: pointer; border: 1px solid #e53e3e; color: #e53e3e; background: none; }
+  .btn-edit { padding: 0.3em 0.8em; font-size: 0.8em; cursor: pointer; border: 1px solid var(--global-masthead-bg-color); color: var(--global-masthead-bg-color); background: none; margin-right: 0.4em; }
+  .btn-edit:hover { background: var(--global-masthead-bg-color); color: #fff; }
+  .file-item-actions { display: flex; gap: 0.4em; flex-shrink: 0; }
+  .cancel-edit { font-size: 0.85em; color: var(--global-text-color-light); cursor: pointer; text-decoration: underline; margin-left: 1em; display: none; }
+  .cancel-edit.visible { display: inline; }
   .btn-sm:hover { background: #e53e3e; color: #fff; }
 
   .preview-box { padding: 1em; border: 1px dashed var(--global-border-color); margin-top: 0.5em; background: var(--global-footer-bg-color); font-size: 0.85em; display: none; }
@@ -122,10 +127,12 @@ author_profile: false
       </div>
       <div style="display:flex; gap:1em; align-items:center;">
         <button class="btn-primary" id="news-submit">发布新闻</button>
+        <span class="cancel-edit" id="news-cancel-edit">取消编辑</span>
         <span style="font-size:0.85em; color:var(--global-text-color-light);" id="news-filename-preview"></span>
       </div>
       <div class="msg" id="news-msg"></div>
     </div>
+    <div class="file-list" id="news-list" style="margin-top:1.5em;"><p style="color:var(--global-text-color-light);">加载中...</p></div>
   </div>
 
   <!-- ====== Members Tab ====== -->
@@ -160,6 +167,7 @@ author_profile: false
         <input type="text" id="member-avatar" placeholder="例如：zhang-san.jpg">
       </div>
       <button class="btn-primary" id="member-submit">添加成员</button>
+      <span class="cancel-edit" id="member-cancel-edit">取消编辑</span>
       <div class="msg" id="member-msg"></div>
     </div>
 
