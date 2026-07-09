@@ -7,6 +7,9 @@ author_profile: false
 
 {% include base_path %}
 
+{% assign phd_students = site.pages | where: "role", "phd" %}
+{% assign master_students = site.pages | where: "role", "master" %}
+
 <div class="people-section">
   <div class="people-section__header">
     <h2>导师</h2>
@@ -30,50 +33,44 @@ author_profile: false
   </div>
 </div>
 
+{% if phd_students.size > 0 %}
 <div class="people-section">
   <div class="people-section__header">
     <h2>博士研究生</h2>
   </div>
   <div class="people-grid">
-    <a href="{{ site.baseurl }}/jiang-jingdong/" class="people-card">
+    {% for student in phd_students %}
+    <a href="{{ student.url | relative_url }}" class="people-card">
       <div class="people-card__img">
-        <img src="{{ site.baseurl }}/assets/img/members/jiang-jingdong.jpg" alt="姜景栋">
+        {% assign slug = student.permalink | remove_first: "/" | remove: "/" %}
+        <img src="{{ site.baseurl }}/assets/img/members/{{ slug }}.jpg" alt="{{ student.title }}">
       </div>
-      <h3 class="people-card__name">姜景栋</h3>
-      <span class="people-card__year">2026 级</span>
-      <p class="people-card__brief">山东科技大学 学士 · 中国科学院电工研究所 硕士</p>
+      <h3 class="people-card__name">{{ student.title }}</h3>
+      <span class="people-card__year">{{ student.year }} 级</span>
+      <p class="people-card__brief">{{ student.education }}</p>
     </a>
-    <a href="{{ site.baseurl }}/jin-yiyang/" class="people-card">
-      <div class="people-card__img">
-        <img src="{{ site.baseurl }}/assets/img/members/jin-yiyang.jpg" alt="靳依扬">
-      </div>
-      <h3 class="people-card__name">靳依扬</h3>
-      <span class="people-card__year">2026 级</span>
-      <p class="people-card__brief">哈尔滨工业大学 学士 · 哈尔滨工业大学 硕士</p>
-    </a>
+    {% endfor %}
   </div>
 </div>
+{% endif %}
 
+{% if master_students.size > 0 %}
 <div class="people-section">
   <div class="people-section__header">
     <h2>硕士研究生</h2>
   </div>
   <div class="people-grid">
-    <a href="{{ site.baseurl }}/cui-haiyang/" class="people-card">
+    {% for student in master_students %}
+    <a href="{{ student.url | relative_url }}" class="people-card">
       <div class="people-card__img">
-        <img src="{{ site.baseurl }}/assets/img/members/cui-haiyang.jpg" alt="崔海阳">
+        {% assign slug = student.permalink | remove_first: "/" | remove: "/" %}
+        <img src="{{ site.baseurl }}/assets/img/members/{{ slug }}.jpg" alt="{{ student.title }}">
       </div>
-      <h3 class="people-card__name">崔海阳</h3>
-      <span class="people-card__year">2026 级</span>
-      <p class="people-card__brief">海南大学 学士</p>
+      <h3 class="people-card__name">{{ student.title }}</h3>
+      <span class="people-card__year">{{ student.year }} 级</span>
+      <p class="people-card__brief">{{ student.education }}</p>
     </a>
-    <a href="{{ site.baseurl }}/dong-li/" class="people-card">
-      <div class="people-card__img">
-        <img src="{{ site.baseurl }}/assets/img/members/dong-li.jpg" alt="董力">
-      </div>
-      <h3 class="people-card__name">董力</h3>
-      <span class="people-card__year">2026 级</span>
-      <p class="people-card__brief">海南大学 学士</p>
-    </a>
+    {% endfor %}
   </div>
 </div>
+{% endif %}
