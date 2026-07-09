@@ -99,8 +99,6 @@
 
     @include breakpoint($large) {
       padding: 5px;
-      border: 2px solid var(--global-masthead-bg-color);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
   }
 }
