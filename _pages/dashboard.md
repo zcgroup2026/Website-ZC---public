@@ -211,4 +211,4 @@ author_profile: false
   </div>
 </div>
 
-<script src="{{ site.baseurl }}/assets/js/admin-dash.js?v=4"></script>
+<script src="{{ site.baseurl }}/assets/js/admin-dash.js?v=5"></script>

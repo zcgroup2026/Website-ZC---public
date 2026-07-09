@@ -84,7 +84,7 @@
     if (sha) {
       var body = {
         message: message || 'update',
-        content: b64encode(),
+        content: b64encode(content),
         branch: 'main',
         sha: sha
       };
@@ -108,7 +108,7 @@
     }).then(function(existingSha) {
       var body = {
         message: message || 'update',
-        content: b64encode(),
+        content: b64encode(content),
         branch: 'main'
       };
       if (existingSha) body.sha = existingSha;
@@ -187,7 +187,7 @@
   }
 
   function parseNewsFrontmatter(raw) {
-    var match = raw.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+    var match = raw.match(/^---[\r\n]+([\s\S]*?)[\r\n]+---[\r\n]+([\s\S]*)$/);
     if (!match) return null;
     var fm = match[1];
     var body = match[2].trim();
@@ -214,7 +214,7 @@
 
       var html = '';
       posts.forEach(function(p) {
-        var content = b64decode();
+        var content = b64decode(data.content);
         var parsed = parseNewsFrontmatter(content);
         var title = parsed ? parsed.title : p.name.replace('.md', '');
         html += '<div class="file-item">' +
@@ -253,7 +253,7 @@
     var msgEl = document.getElementById('news-msg'); msgEl.style.display = 'none';
 
     ghGet('_posts/' + name).then(function(data) {
-      var raw = b64decode();
+      var raw = b64decode(data.content);
       var parsed = parseNewsFrontmatter(raw);
       if (!parsed) { showMsg('news-msg', '无法解析新闻文件', 'error'); return; }
 
@@ -406,7 +406,7 @@
   }
 
   function parseMemberFrontmatter(raw) {
-    var match = raw.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+    var match = raw.match(/^---[\r\n]+([\s\S]*?)[\r\n]+---[\r\n]+([\s\S]*)$/);
     if (!match) return null;
     var fm = match[1];
     var body = match[2].trim();
@@ -436,7 +436,7 @@
 
       var html = '';
       members.forEach(function(m) {
-        var content = b64decode();
+        var content = b64decode(data.content);
         var parsed = parseMemberFrontmatter(content);
         var displayName = parsed ? parsed.title : m.name.replace('.md', '');
         html += '<div class="file-item">' +
@@ -472,7 +472,7 @@
     var msgEl = document.getElementById('member-msg'); msgEl.style.display = 'none';
 
     ghGet('_pages/' + name).then(function(data) {
-      var raw = b64decode();
+      var raw = b64decode(data.content);
       var parsed = parseMemberFrontmatter(raw);
       if (!parsed) { showMsg('member-msg', '无法解析成员文件', 'error'); return; }
 
