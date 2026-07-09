@@ -84,4 +84,11 @@ redirect_from:
   <a href="{{ site.baseurl }}/news/" class="home-view-all">查看全部动态 &rarr;</a>
 </div>
 
+
+<style>
+a.hero-slide { display: block; text-decoration: none; }
+a.hero-slide .hero-slide__title,
+a.hero-slide .hero-slide__desc { color: #fff; }
+</style>
+
 <script src="{{ site.baseurl }}/assets/js/carousel.js"></script>
