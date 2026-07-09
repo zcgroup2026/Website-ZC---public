@@ -485,137 +485,146 @@
 
 /* ---- PI card ---- */
 
-/* ---- PI card ---- */
+/* ---- People (Ceder style) ---- */
 
-.pi-card {
-  display: flex;
-  align-items: center;
-  gap: 2em;
-  padding: 2.2em 2.5em;
+.people-section {
   margin-bottom: 3em;
+
+  & + .people-section {
+    padding-top: 1.5em;
+    border-top: 1px solid var(--global-border-color);
+  }
+}
+
+.people-section__header {
+  margin-bottom: 1.2em;
+
+  h2 {
+    font-size: $type-size-3;
+    font-weight: 700;
+    margin: 0;
+    padding: 0 0 0.35em 0;
+    border: none;
+    border-bottom: 2px solid var(--global-masthead-bg-color);
+  }
+}
+
+/* PI item (horizontal) */
+
+.people-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+}
+
+.people-item {
+  display: flex;
+  gap: 2em;
+  align-items: flex-start;
+  padding: 2em;
   background: var(--global-footer-bg-color);
-  border-radius: 0;
   border: 1px solid var(--global-border-color);
   border-left: 3px solid var(--global-masthead-bg-color);
-  transition: box-shadow 0.25s ease;
-  &:hover { box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06); }
+
+  @media (max-width: 700px) {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
 }
 
-.pi-card__img-wrap {
+.people-item__img {
   flex-shrink: 0;
+
+  img {
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+    display: block;
+    border: 2px solid var(--global-border-color);
+  }
 }
 
-.pi-card__avatar {
-  width: 140px;
-  height: 140px;
-  border-radius: 0;
-  object-fit: cover;
-  display: block;
-  border: 2px solid var(--global-border-color);
-}
-
-.pi-card__info {
+.people-item__body {
   flex: 1;
+  min-width: 0;
 }
 
-.pi-card__name {
+.people-item__name {
   font-size: $type-size-3;
   font-weight: 700;
-  margin: 0 0 0.3em 0;
+  margin: 0 0 0.2em 0;
   padding: 0;
   border: none;
 }
 
-.pi-card__title {
+.people-item__role {
   font-size: $type-size-5;
   color: var(--global-masthead-bg-color);
   font-weight: 600;
   margin: 0 0 0.3em 0;
 }
 
-.pi-card__dept {
+.people-item__dept {
   font-size: $type-size-6;
   color: var(--global-text-color-light);
-  margin: 0 0 1em 0;
+  margin: 0 0 0.8em 0;
 }
 
-.pi-card__links {
+.people-item__bio {
+  font-size: $type-size-5;
+  line-height: 1.65;
+  margin: 0 0 1em 0;
+  color: var(--global-text-color);
+}
+
+.people-item__links {
   display: flex;
   gap: 0.6em;
   flex-wrap: wrap;
-}
 
-.pi-card__link-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35em;
-  padding: 0.4em 0.9em;
-  font-size: $type-size-7;
-  font-weight: 600;
-  color: var(--global-masthead-bg-color);
-  background: var(--global-bg-color);
-  border: 1px solid var(--global-border-color);
-  text-decoration: none;
-  transition: background 0.2s ease, border-color 0.2s ease;
-
-  &:hover {
-    background: var(--global-masthead-bg-color);
-    color: #fff;
-    border-color: var(--global-masthead-bg-color);
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35em;
+    padding: 0.4em 0.9em;
+    font-size: $type-size-7;
+    font-weight: 600;
+    color: var(--global-masthead-bg-color);
+    background: var(--global-bg-color);
+    border: 1px solid var(--global-border-color);
     text-decoration: none;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+
+    &:hover {
+      background: var(--global-masthead-bg-color);
+      color: #fff;
+      border-color: var(--global-masthead-bg-color);
+    }
+
+    i, .ai { font-size: 0.9em; }
   }
-
-  i, .ai { font-size: 0.9em; }
 }
 
-/* ---- Member section header ---- */
+/* Student grid */
 
-.member-section-header {
-  display: flex;
-  align-items: baseline;
-  gap: 0.7em;
-  margin-bottom: 1.2em;
-  padding-bottom: 0.5em;
-  border-bottom: 2px solid var(--global-masthead-bg-color);
-}
-
-.member-section-title {
-  font-size: $type-size-4;
-  font-weight: 700;
-  margin: 0;
-  padding: 0;
-  border: none;
-}
-
-.member-section-count {
-  font-size: $type-size-7;
-  font-weight: 600;
-  color: var(--global-text-color-light);
-  background: var(--global-footer-bg-color);
-  padding: 0.2em 0.7em;
-  border-radius: 999px;
-}
-
-/* ---- Member grid ---- */
-
-.member-grid {
+.people-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 1.8em;
-  margin-top: 1.5em;
 }
 
-.member-card {
+.people-card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1.8em 1em 1.5em;
+  padding: 1.5em 1em;
   text-decoration: none !important;
   color: inherit;
-  border-radius: 0;
   background: var(--global-bg-color);
   border: 1px solid transparent;
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+
   &:hover {
     transform: translateY(-4px);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
@@ -623,51 +632,40 @@
   }
 }
 
-.member-card__img-wrap {
-  width: 130px;
-  height: 130px;
+.people-card__img {
+  width: 140px;
+  height: 140px;
   overflow: hidden;
   margin-bottom: 1em;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
 }
 
-.member-card__avatar {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.member-card__name {
+.people-card__name {
   font-size: $type-size-4;
   font-weight: 600;
-  margin: 0 0 0.5em 0;
+  margin: 0 0 0.3em 0;
   text-align: center;
 }
 
-.member-card__role {
-  display: inline-block;
-  padding: 0.25em 0.8em;
-  font-size: $type-size-7;
-  font-weight: 600;
-  border-radius: 999px;
-  letter-spacing: 0.3px;
-  margin-bottom: 0.4em;
-}
-
-.member-card__dept {
+.people-card__year {
   font-size: $type-size-7;
   color: var(--global-text-color-light);
   font-weight: 500;
+  margin-bottom: 0.6em;
 }
 
-.role-phd {
-  background: rgba(26, 54, 93, 0.12);
-  color: #1a365d;
-}
-
-.role-master {
-  background: rgba(43, 108, 176, 0.1);
-  color: #2b6cb0;
+.people-card__brief {
+  font-size: $type-size-7;
+  color: var(--global-text-color-light);
+  text-align: center;
+  line-height: 1.5;
+  margin: 0;
 }
 
 /* ---- Admin corner link ---- */

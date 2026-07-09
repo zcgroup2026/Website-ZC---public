@@ -7,59 +7,74 @@ author_profile: false
 
 {% include base_path %}
 
-<!-- PI Card -->
-<div class="pi-card">
-  <div class="pi-card__img-wrap">
-    <img class="pi-card__avatar" src="{{ site.author.avatar | prepend: '/images/' | prepend: base_path }}" alt="{{ site.author.name }}">
+<div class="people-section">
+  <div class="people-section__header">
+    <h2>导师</h2>
   </div>
-  <div class="pi-card__info">
-    <h2 class="pi-card__name">{{ site.author.name }}</h2>
-    <p class="pi-card__title">{{ site.author.bio }}</p>
-    <p class="pi-card__dept">{{ site.author.location }}</p>
-    <div class="pi-card__links">
-      <a href="mailto:zjcai@berkeley.edu" class="pi-card__link-item"><i class="fas fa-envelope"></i> 邮箱</a>
-      <a href="https://scholar.google.com/citations?user=4OFp18YAAAAJ&hl=en&oi=ao" target="_blank" rel="noopener" class="pi-card__link-item"><i class="ai ai-google-scholar"></i> Google Scholar</a>
-      <a href="{{ site.baseurl }}/cv/" class="pi-card__link-item"><i class="fas fa-file-alt"></i> CV</a>
+  <div class="people-list">
+    <div class="people-item">
+      <div class="people-item__img">
+        <img src="{{ site.author.avatar | prepend: '/images/' | prepend: base_path }}" alt="{{ site.author.name }}">
+      </div>
+      <div class="people-item__body">
+        <h3 class="people-item__name">{{ site.author.name }}</h3>
+        <p class="people-item__role">{{ site.author.bio }}</p>
+        <p class="people-item__dept">{{ site.author.location }}</p>
+        <p class="people-item__bio">博士毕业于加州大学伯克利分校材料科学与工程系（师从 Gerbrand Ceder 教授），曾在三星半导体先进材料研究院担任高级工程师。研究方向为 AI 驱动的电池材料设计与自动化实验室。</p>
+        <div class="people-item__links">
+          <a href="mailto:zjcai@berkeley.edu"><i class="fas fa-envelope"></i> 邮箱</a>
+          <a href="https://scholar.google.com/citations?user=4OFp18YAAAAJ&hl=en&oi=ao" target="_blank" rel="noopener"><i class="ai ai-google-scholar"></i> Google Scholar</a>
+          <a href="{{ site.baseurl }}/cv/"><i class="fas fa-file-alt"></i> CV</a>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
-<div class="member-section-header">
-  <h2 class="member-section-title">在读学生</h2>
-  <span class="member-section-count">4 人</span>
+<div class="people-section">
+  <div class="people-section__header">
+    <h2>博士研究生</h2>
+  </div>
+  <div class="people-grid">
+    <a href="{{ site.baseurl }}/jiang-jingdong/" class="people-card">
+      <div class="people-card__img">
+        <img src="{{ site.baseurl }}/assets/img/members/jiang-jingdong.jpg" alt="姜景栋">
+      </div>
+      <h3 class="people-card__name">姜景栋</h3>
+      <span class="people-card__year">2026 级</span>
+      <p class="people-card__brief">山东科技大学 学士 · 中国科学院电工研究所 硕士</p>
+    </a>
+    <a href="{{ site.baseurl }}/jin-yiyang/" class="people-card">
+      <div class="people-card__img">
+        <img src="{{ site.baseurl }}/assets/img/members/jin-yiyang.jpg" alt="靳依扬">
+      </div>
+      <h3 class="people-card__name">靳依扬</h3>
+      <span class="people-card__year">2026 级</span>
+      <p class="people-card__brief">哈尔滨工业大学 学士 · 哈尔滨工业大学 硕士</p>
+    </a>
+  </div>
 </div>
 
-<div class="member-grid">
-  <a href="{{ site.baseurl }}/cui-haiyang/" class="member-card">
-    <div class="member-card__img-wrap">
-      <img class="member-card__avatar" src="{{ site.baseurl }}/assets/img/members/cui-haiyang.jpg" alt="崔海阳">
-    </div>
-    <h3 class="member-card__name">崔海阳</h3>
-    <span class="member-card__role role-master">硕士研究生</span>
-    <span class="member-card__dept">2026 级</span>
-  </a>
-  <a href="{{ site.baseurl }}/dong-li/" class="member-card">
-    <div class="member-card__img-wrap">
-      <img class="member-card__avatar" src="{{ site.baseurl }}/assets/img/members/dong-li.jpg" alt="董力">
-    </div>
-    <h3 class="member-card__name">董力</h3>
-    <span class="member-card__role role-master">硕士研究生</span>
-    <span class="member-card__dept">2026 级</span>
-  </a>
-  <a href="{{ site.baseurl }}/jiang-jingdong/" class="member-card">
-    <div class="member-card__img-wrap">
-      <img class="member-card__avatar" src="{{ site.baseurl }}/assets/img/members/jiang-jingdong.jpg" alt="姜景栋">
-    </div>
-    <h3 class="member-card__name">姜景栋</h3>
-    <span class="member-card__role role-phd">博士研究生</span>
-    <span class="member-card__dept">2026 级</span>
-  </a>
-  <a href="{{ site.baseurl }}/jin-yiyang/" class="member-card">
-    <div class="member-card__img-wrap">
-      <img class="member-card__avatar" src="{{ site.baseurl }}/assets/img/members/jin-yiyang.jpg" alt="靳依扬">
-    </div>
-    <h3 class="member-card__name">靳依扬</h3>
-    <span class="member-card__role role-phd">博士研究生</span>
-    <span class="member-card__dept">2026 级</span>
-  </a>
+<div class="people-section">
+  <div class="people-section__header">
+    <h2>硕士研究生</h2>
+  </div>
+  <div class="people-grid">
+    <a href="{{ site.baseurl }}/cui-haiyang/" class="people-card">
+      <div class="people-card__img">
+        <img src="{{ site.baseurl }}/assets/img/members/cui-haiyang.jpg" alt="崔海阳">
+      </div>
+      <h3 class="people-card__name">崔海阳</h3>
+      <span class="people-card__year">2026 级</span>
+      <p class="people-card__brief">海南大学 学士</p>
+    </a>
+    <a href="{{ site.baseurl }}/dong-li/" class="people-card">
+      <div class="people-card__img">
+        <img src="{{ site.baseurl }}/assets/img/members/dong-li.jpg" alt="董力">
+      </div>
+      <h3 class="people-card__name">董力</h3>
+      <span class="people-card__year">2026 级</span>
+      <p class="people-card__brief">华南理工大学 学士</p>
+    </a>
+  </div>
 </div>
