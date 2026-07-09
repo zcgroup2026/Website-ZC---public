@@ -47,7 +47,7 @@ author_profile: false
       </div>
       <h3 class="people-card__name">{{ student.title }}</h3>
       <span class="people-card__year">{{ student.year }} 级</span>
-      <p class="people-card__brief">{{ student.education }}</p>
+      
     </a>
     {% endfor %}
   </div>
@@ -68,7 +68,7 @@ author_profile: false
       </div>
       <h3 class="people-card__name">{{ student.title }}</h3>
       <span class="people-card__year">{{ student.year }} 级</span>
-      <p class="people-card__brief">{{ student.education }}</p>
+      
     </a>
     {% endfor %}
   </div>

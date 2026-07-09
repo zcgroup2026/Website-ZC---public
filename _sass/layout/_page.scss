@@ -524,7 +524,7 @@
   padding: 2em;
   background: var(--global-footer-bg-color);
   border: 1px solid var(--global-border-color);
-  border-left: 3px solid var(--global-masthead-bg-color);
+  
 
   @media (max-width: 700px) {
     flex-direction: column;
@@ -697,7 +697,7 @@
 .news-card {
   padding: 1.5em 1.8em;
   border: 1px solid var(--global-border-color);
-  border-left: 3px solid var(--global-masthead-bg-color);
+  
   border-radius: 0;
   background: var(--global-bg-color);
   transition: box-shadow 0.25s ease, transform 0.25s ease;
