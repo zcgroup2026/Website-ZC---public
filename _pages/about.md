@@ -8,6 +8,11 @@ redirect_from:
   - /about.html
 ---
 
+
+<style>
+.author__avatar img { border: none !important; box-shadow: none !important; padding: 0 !important; }
+</style>
+
 <!-- ====== 滚动轮播 ====== -->
 <div class="hero-carousel" id="heroCarousel">
   <div class="hero-slide active" style="background-image: url('{{ site.baseurl }}/images/talk1.png');">
