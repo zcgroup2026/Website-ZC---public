@@ -6,8 +6,8 @@ author_profile: false
 sidebar: false
 role: master
 year: 2026
-education: "华南理工大学 学士"
-email: "17806281073@163.com"
+education: "盐城工学院 学士"
+email: dongli@stu.ycit.edu.cn
 research: ""
 ---
 
@@ -36,4 +36,4 @@ research: ""
       </dl>
     </div>
   </div>
-</div>
+</div>�
