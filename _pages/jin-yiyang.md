@@ -6,8 +6,8 @@ author_profile: false
 sidebar: false
 role: phd
 year: 2026
-education: "哈尔滨工业大学 学士 | 哈尔滨工业大学 硕士"
-email: "yiyang.jin@outlook.com"
+education: "西安交通大学 学士 | 机械科学研究总院 硕士"
+email: “13333860102@163.com”
 research: ""
 ---
 
