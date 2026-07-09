@@ -6,17 +6,26 @@ author_profile: false
 sidebar: false
 ---
 
-<div style="display: flex; gap: 2.5rem; margin: 2rem 0; align-items: flex-start; flex-wrap: wrap;">
-  <div style="flex-shrink: 0;">
-    <img src="{{ site.baseurl }}/assets/img/members/jin-yiyang.jpg" alt="靳依扬" style="width: 180px;">
+<a href="{{ site.baseurl }}/members/" class="profile-back-link">&larr; 返回成员列表</a>
+
+<div class="profile-layout">
+  <div class="profile-sidebar">
+    <div class="profile-photo-wrap">
+      <img src="{{ site.baseurl }}/assets/img/members/jin-yiyang.jpg" alt="靳依扬">
+    </div>
+    <h2 class="profile-name">靳依扬</h2>
+    <span class="profile-role role-phd">博士研究生</span>
+    <span class="profile-year">2026 级</span>
   </div>
-  <div>
-    <h2>基本信息</h2>
-    <ul style="line-height: 2;">
-      <li><strong>身份</strong>：博士研究生</li>
-      <li><strong>入学年份</strong>：2026</li>
-      <li><strong>学习经历</strong>：西安交通大学 学士 | 中国机械科学研究总院 硕士</li>
-      <li><strong>邮箱</strong>：13333860102@163.com</li>
-    </ul>
+  <div class="profile-main">
+    <div class="profile-info-card">
+      <h3>基本信息</h3>
+      <dl>
+        <dt>身份</dt><dd>博士研究生</dd>
+        <dt>入学年份</dt><dd>2026</dd>
+        <dt>学习经历</dt><dd>哈尔滨工业大学 学士 | 哈尔滨工业大学 硕士</dd>
+        <dt>邮箱</dt><dd><a href="mailto:yiyang.jin@outlook.com">yiyang.jin@outlook.com</a></dd>
+      </dl>
+    </div>
   </div>
 </div>
