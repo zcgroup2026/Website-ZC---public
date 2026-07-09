@@ -174,6 +174,7 @@ author_profile: false
         <label>研究方向</label>
         <input type="text" id="member-research" placeholder="例如：锂离子电池正极材料">
       </div>
+      <div class="form-row" style="display:none"><label>页面正文（编辑时自动保留）</label><textarea id="member-bio"></textarea></div>
       <div class="form-row" id="member-avatar-row">
         <label>头像文件名（请先将图片上传至 <code>assets/img/members/</code>）</label>
         <input type="text" id="member-avatar" placeholder="例如：zhang-san.jpg">
@@ -223,4 +224,4 @@ author_profile: false
   </div>
 </div>
 
-<script src="{{ site.baseurl }}/assets/js/admin-dash.js?v=7"></script>
+<script src="{{ site.baseurl }}/assets/js/admin-dash.js?v=8"></script>
