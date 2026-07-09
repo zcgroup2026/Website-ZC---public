@@ -20,7 +20,6 @@ author_profile: false
         <h3 class="people-item__name">{{ site.author.name }}</h3>
         <p class="people-item__role">{{ site.author.bio }}</p>
         <p class="people-item__dept">{{ site.author.location }}</p>
-        <p class="people-item__bio">博士毕业于加州大学伯克利分校材料科学与工程系（师从 Gerbrand Ceder 教授），曾在三星半导体先进材料研究院担任高级工程师。研究方向为 AI 驱动的电池材料设计与自动化实验室。</p>
         <div class="people-item__links">
           <a href="mailto:zjcai@berkeley.edu"><i class="fas fa-envelope"></i> 邮箱</a>
           <a href="https://scholar.google.com/citations?user=4OFp18YAAAAJ&hl=en&oi=ao" target="_blank" rel="noopener"><i class="ai ai-google-scholar"></i> Google Scholar</a>
@@ -74,7 +73,7 @@ author_profile: false
       </div>
       <h3 class="people-card__name">董力</h3>
       <span class="people-card__year">2026 级</span>
-      <p class="people-card__brief">华南理工大学 学士</p>
+      <p class="people-card__brief">海南大学 学士</p>
     </a>
   </div>
 </div>
