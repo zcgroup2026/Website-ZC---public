@@ -7,6 +7,13 @@ author_profile: false
 
 {% include base_path %}
 
+
+<style>
+.people-card__img img { height: auto !important; object-fit: initial !important; }
+.people-item__img img { width: 180px !important; height: 180px !important; }
+</style>
+
+
 {% assign phd_students = site.pages | where: "role", "phd" %}
 {% assign master_students = site.pages | where: "role", "master" %}
 
