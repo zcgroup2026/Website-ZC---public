@@ -1,4 +1,4 @@
-﻿---
+---
 title: "崔海洋"
 permalink: /cui-haiyang/
 layout: single

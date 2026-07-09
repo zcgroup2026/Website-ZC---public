@@ -1,4 +1,4 @@
-﻿---
+---
 layout: single
 title: "管理后台"
 permalink: /dashboard/

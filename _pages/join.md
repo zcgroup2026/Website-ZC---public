@@ -1,4 +1,4 @@
-﻿---
+---
 layout: archive
 title: "加入我们"
 permalink: /join/

@@ -1,4 +1,4 @@
-﻿---
+---
 layout: single
 title: "管理员入口"
 permalink: /admin/

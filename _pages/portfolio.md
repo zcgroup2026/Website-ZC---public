@@ -1,4 +1,4 @@
-﻿---
+---
 layout: single
 title: "设备仪器"
 permalink: /portfolio/

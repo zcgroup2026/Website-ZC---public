@@ -1,4 +1,4 @@
-﻿---
+---
 title: "靳依扬"
 permalink: /jin-yiyang/
 layout: single

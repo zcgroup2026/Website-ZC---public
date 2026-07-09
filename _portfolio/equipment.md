@@ -1,4 +1,4 @@
-﻿---
+---
 title: "实验室仪器设备"
 excerpt: "课题组主要仪器设备概览"
 collection: portfolio

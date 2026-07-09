@@ -1,4 +1,4 @@
-﻿---
+---
 layout: archive
 title: "课题组动态"
 permalink: /news/

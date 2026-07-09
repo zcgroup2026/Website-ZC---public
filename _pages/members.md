@@ -1,4 +1,4 @@
-﻿---
+---
 permalink: /members/
 title: "课题组成员"
 layout: single

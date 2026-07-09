@@ -1,4 +1,4 @@
-﻿---
+---
 title: "董力"
 permalink: /dong-li/
 layout: single

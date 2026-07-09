@@ -1,4 +1,4 @@
-﻿---
+---
 title: "姜景栋"
 permalink: /jiang-jingdong/
 layout: single
