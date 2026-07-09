@@ -696,19 +696,40 @@
   // ========== HTML escape helpers ==========
 
     function b64decode(str) {
-    // Strip whitespace that GitHub API inserts into base64
-    var cleaned = String(str).replace(/\s/g, '');
-    var binary = atob(cleaned);
-    var bytes = new Uint8Array(binary.length);
-    for (var i = 0; i < binary.length; i++) { bytes[i] = binary.charCodeAt(i); }
+    var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+    var cleaned = String(str).replace(/[^A-Za-z0-9+/=]/g, '');
+    var output = [];
+    var i = 0;
+    while (i < cleaned.length) {
+      var a = chars.indexOf(cleaned[i++]);
+      var b = chars.indexOf(cleaned[i++]);
+      var c = chars.indexOf(cleaned[i++]);
+      var d = chars.indexOf(cleaned[i++]);
+      var b1 = (a << 2) | (b >> 4);
+      var b2 = ((b & 15) << 4) | (c >> 2);
+      var b3 = ((c & 3) << 6) | d;
+      output.push(b1);
+      if (c !== 64) output.push(b2);
+      if (d !== 64) output.push(b3);
+    }
+    var bytes = new Uint8Array(output);
     return new TextDecoder('utf-8').decode(bytes);
   }
 
   function b64encode(str) {
+    var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
     var bytes = new TextEncoder().encode(str);
-    var binary = '';
-    for (var i = 0; i < bytes.length; i++) { binary += String.fromCharCode(bytes[i]); }
-    return btoa(binary);
+    var output = '';
+    for (var i = 0; i < bytes.length; i += 3) {
+      var a = bytes[i];
+      var b = i + 1 < bytes.length ? bytes[i + 1] : 0;
+      var c = i + 2 < bytes.length ? bytes[i + 2] : 0;
+      output += chars[a >> 2];
+      output += chars[((a & 3) << 4) | (b >> 4)];
+      output += i + 1 < bytes.length ? chars[((b & 15) << 2) | (c >> 6)] : '=';
+      output += i + 2 < bytes.length ? chars[c & 63] : '=';
+    }
+    return output;
   }
 
   function escHtml(str) {
