@@ -1,6 +1,6 @@
 ---
 permalink: /members/
-title: ""
+title: "课题组成员"
 layout: single
 author_profile: false
 ---
@@ -9,6 +9,7 @@ author_profile: false
 
 
 <style>
+.page__title { display: none !important; }
 .people-card__img img { height: auto !important; object-fit: initial !important; }
 .people-item__img img { width: 180px !important; height: 180px !important; }
 </style>
