@@ -1,6 +1,6 @@
 ---
 permalink: /members/
-title: "课题组成员"
+title: ""
 layout: single
 author_profile: false
 ---
