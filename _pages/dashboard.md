@@ -122,6 +122,18 @@ author_profile: false
         <textarea id="news-content" placeholder="在这里输入新闻正文..."></textarea>
       </div>
       <div class="form-row">
+        <label>新闻图片（上传后自动插入正文）</label>
+        <div style="display:flex; gap:0.6em; align-items:center; flex-wrap:wrap;">
+          <input type="file" id="news-image" accept="image/*" style="flex:1; min-width:200px;">
+          <button class="btn-primary" id="news-image-upload" type="button" style="flex-shrink:0;">上传图片</button>
+        </div>
+        <p style="font-size:0.8em; color:var(--global-text-color-light); margin-top:0.5em;">
+          图片会上传到仓库 <code>assets/img/news/</code>（支持 png / jpg / jpeg / gif / webp / svg / bmp，单个不超过 10MB，建议 2MB 以内），上传后会自动在正文光标处插入图片引用，GitHub Pages 构建完成后即可显示。
+        </p>
+        <div class="msg" id="news-image-msg"></div>
+      </div>
+      <div class="file-list" id="news-image-list" style="display:none;"></div>
+      <div class="form-row">
         <label>摘要（留空则自动截取前 120 字）</label>
         <input type="text" id="news-excerpt" placeholder="可选，简短摘要">
       </div>
@@ -224,4 +236,4 @@ author_profile: false
   </div>
 </div>
 
-<script src="{{ site.baseurl }}/assets/js/admin-dash.js?v=8"></script>
+<script src="{{ site.baseurl }}/assets/js/admin-dash.js?v=9"></script>
