@@ -25,6 +25,89 @@
   function ghGet(p){ return fetch(API_BASE+p,{headers:{'Authorization':'token '+getToken(),'Accept':'application/vnd.github.v3+json'}}).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json();}); }
   function ghPut(p,fc,mg,sha){ var body={message:mg||'update',content:b64e(fc),branch:'main'};if(sha)body.sha=sha;function dp(s){if(s)body.sha=s;return fetch(API_BASE+p,{method:'PUT',headers:{'Authorization':'token '+getToken(),'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},body:JSON.stringify(body)}).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json();});} if(sha)return dp(null);return ghGet(p).then(function(d){return d.sha;}).catch(function(){return null;}).then(dp); }
 
+  // NEWS IMAGE UPLOAD
+  var NEWS_IMG_DIR = 'assets/img/news/';
+  var IMG_EXTS = {png:1,jpg:1,jpeg:1,gif:1,webp:1,svg:1,bmp:1};
+
+  function ghPutRaw(p,b64,mg){
+    var body={message:mg||'update',content:b64,branch:'main'};
+    return fetch(API_BASE+p,{method:'PUT',headers:{'Authorization':'token '+getToken(),'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},body:JSON.stringify(body)}).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json();});
+  }
+  function readImgB64(file){
+    return new Promise(function(res,rej){
+      var fr=new FileReader();
+      fr.onload=function(){res(String(fr.result).split(',')[1]||'');};
+      fr.onerror=function(){rej(new Error('读取文件失败'));};
+      fr.readAsDataURL(file);
+    });
+  }
+  function imgMarkdown(name,alt){
+    return '!['+alt+']({{ site.baseurl }}/'+NEWS_IMG_DIR+name+')';
+  }
+  function insertAtCursor(el,txt){
+    if(!el)return;
+    if(typeof el.selectionStart!=='undefined'){
+      var s=el.selectionStart,e=el.selectionEnd,v=el.value;
+      el.value=v.slice(0,s)+txt+v.slice(e);
+      el.selectionStart=el.selectionEnd=s+txt.length;
+      el.focus();
+    }else{el.value+=txt;}
+  }
+  function addImgItem(name,b64,ext,alt){
+    var list=document.getElementById('news-image-list');
+    if(!list)return;
+    list.style.display='block';
+    var item=document.createElement('div');
+    item.className='file-item';
+    var md=imgMarkdown(name,alt);
+    item.innerHTML='<div class="file-item-info"><img src="data:image/'+ext+';base64,'+b64+'" alt="" style="height:48px;width:auto;vertical-align:middle;margin-right:0.6em;border:1px solid var(--global-border-color);border-radius:4px;"><span class="file-item-name">'+escH(name)+'</span><br><code style="font-size:0.8em;">'+escH(md)+'</code></div><div class="file-item-actions"><button class="btn-edit js-img-insert" type="button">插入正文</button><button class="btn-sm js-img-delete" type="button">删除</button></div>';
+    list.appendChild(item);
+    item.querySelector('.js-img-insert').addEventListener('click',function(){
+      insertAtCursor(document.getElementById('news-content'),md+'\n');
+      msg('news-image-msg','已插入正文','success');
+    });
+    item.querySelector('.js-img-delete').addEventListener('click',function(){
+      if(!confirm('确定从仓库删除该图片？'))return;
+      ghGet(NEWS_IMG_DIR+name).then(function(d){
+        return fetch(API_BASE+NEWS_IMG_DIR+name,{method:'DELETE',headers:{'Authorization':'token '+getToken(),'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},body:JSON.stringify({message:'delete image: '+name,sha:d.sha,branch:'main'})});
+      }).then(function(r){
+        if(!r.ok)throw new Error('HTTP '+r.status);
+        item.parentNode.removeChild(item);
+        if(!list.children.length)list.style.display='none';
+        msg('news-image-msg','图片已删除','success');
+      }).catch(function(e){msg('news-image-msg','删除失败：'+e.message,'error');});
+    });
+  }
+  function setupIMG(){
+    var inp=document.getElementById('news-image'),btn=document.getElementById('news-image-upload');
+    if(!inp||!btn)return;
+    btn.addEventListener('click',function(){
+      if(!reqAuth())return;
+      if(!getToken()){msg('news-image-msg','请先配置 Token','error');return;}
+      var f=inp.files&&inp.files[0];
+      if(!f){msg('news-image-msg','请先选择图片文件','error');return;}
+      var ext=(f.name.split('.').pop()||'').toLowerCase();
+      if(!IMG_EXTS[ext]){msg('news-image-msg','仅支持 png / jpg / jpeg / gif / webp / svg / bmp','error');return;}
+      if(f.size>10*1024*1024){msg('news-image-msg','图片不能超过 10MB','error');return;}
+      var base=String(f.name.replace(/\.[^.]+$/,'')).trim().replace(/[^\p{L}\p{N}_-]+/gu,'-').replace(/-+/g,'-').replace(/^-|-$/g,'')||'image';
+      var name=Date.now()+'-'+base+'.'+ext;
+      var alt=base;
+      btn.disabled=true;btn.textContent='上传中...';
+      readImgB64(f).then(function(b64){
+        return ghPutRaw(NEWS_IMG_DIR+name,b64,'add news image: '+name).then(function(){return b64;});
+      }).then(function(b64){
+        addImgItem(name,b64,ext,alt);
+        insertAtCursor(document.getElementById('news-content'),imgMarkdown(name,alt)+'\n');
+        inp.value='';
+        msg('news-image-msg','上传成功，已插入正文；GitHub Pages 构建完成后图片即可访问','success');
+      }).catch(function(e){
+        msg('news-image-msg','上传失败：'+e.message,'error');
+      }).finally(function(){
+        btn.disabled=false;btn.textContent='上传图片';
+      });
+    });
+  }
+
   var FM_RE = /^---[\r\n]+([\s\S]*?)[\r\n]+---[\r\n]+([\s\S]*)$/;
   function parseFM(raw) {
     var m=raw.match(FM_RE); if(!m)return null;
@@ -74,7 +157,7 @@
   function escA(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 
   showTb();var dt=document.getElementById('news-date');if(dt)dt.value=fmtD(new Date().toISOString().split('T')[0]);
-  setupNF();setupMF();setupST();
+  setupNF();setupMF();setupST();setupIMG();
   if(hasSession()){initTab();}else{var ov=document.getElementById('auth-overlay');if(ov)ov.style.display='block';document.querySelectorAll('.dash-panel').forEach(function(p){p.classList.remove('active');});}
   window.addEventListener('hashchange',function(){var h=window.location.hash.replace('#','');if(['tab-news','tab-members','tab-settings'].indexOf(h)!==-1)switchTab(h);});
 })();
