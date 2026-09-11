@@ -17,6 +17,7 @@ author_profile: false
 
 {% assign phd_students = site.pages | where: "role", "phd" %}
 {% assign master_students = site.pages | where: "role", "master" %}
+{% assign postdocs = site.pages | where: "role", "postdoc" %}
 
 <div class="people-section">
   <div class="people-section__header">
@@ -40,6 +41,26 @@ author_profile: false
     </div>
   </div>
 </div>
+
+{% if postdocs.size > 0 %}
+<div class="people-section">
+  <div class="people-section__header">
+    <h2>博士后</h2>
+  </div>
+  <div class="people-grid">
+    {% for member in postdocs %}
+    <a href="{{ member.url | relative_url }}" class="people-card">
+      <div class="people-card__img">
+        {% assign slug = member.permalink | remove_first: "/" | remove: "/" %}
+        <img src="{{ site.baseurl }}/assets/img/members/{{ slug }}.jpg" alt="{{ member.title }}">
+      </div>
+      <h3 class="people-card__name">{{ member.title }}</h3>
+      <span class="people-card__year">博士后</span>
+    </a>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
 
 {% if phd_students.size > 0 %}
 <div class="people-section">
